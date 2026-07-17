@@ -1,0 +1,82 @@
+İki ədədin cəmini tapmaq.
+
+Dairənin sahəsini hesablamaq.
+
+İstifadəçinin daxil etdiyi ədədin tək və ya cüt olduğunu müəyyən etmək.
+
+Daxil edilən iki ədəddən böyüyünü tapmaq.
+
+İstifadəçinin yaşının 18-dən böyük olub-olmadığını (yetkinlik yaşını) yoxlamaq.
+
+Havanın temperaturuna əsasən suyun maye, bərk (buz) və ya qaz (buxar) halında olduğunu tapmaq.
+
+Daxil edilən ədədin müsbət, mənfi və ya sıfır olduğunu müəyyən etmək.
+
+Həftənin sıra nömrəsinə (1-7) uyğun olaraq günün adını ekrana çıxarmaq.
+
+1-dən 100-ə qədər olan bütün ədədləri ekrana yazdırmaq.
+
+Daxil edilən ədədin faktorialını hesablamaq.
+
+1-dən N-ə qədər olan bütün cüt ədədlərin cəmini tapmaq.
+
+İstifadəçi ekrana "stop" yazana qədər daxil edilən ədədləri toplamaq.
+
+Daxil edilən ədədin neçə rəqəmli olduğunu tapmaq.
+
+İstifadəçidən düzgün şifrə (məsələn: "1234") daxil edilənə qədər yenidən şifrə istəmək.
+
+Daxil edilən ədədin sadə və ya mürəkkəb olduğunu müəyyən etmək.
+
+Verilmiş ədədin rəqəmlərinin cəmini tapmaq.
+
+Bir ədədin digər ədədə qalıqsız bölünüb-bölünmədiyini yoxlamaq.
+
+Daxil edilən mətnin (string) simvol sayını tapmaq.
+
+1-dən 50-yə qədər olan ədədlər arasından həm 3-ə, həm də 5-ə bölünən ədədləri tapmaq.
+
+İstifadəçinin daxil etdiyi N sayda ədədin ədədi ortasını hesablamaq.
+
+Daxil edilən ədədin mükəmməl ədəd (özü istisna olmaqla bütün bölənlərinin cəmi özünə bərabər olan ədəd) olub-olmadığını yoxlamaq.Daxil edilən üç ədədi artan sıra ilə düzmək.Verilmiş ədədin rəqəmlərinin tərsini tapmaq (məsələn: 123 -> 321).Fibonacci ardıcıllığının ilk N həddini ekrana çıxarmaq.İstifadəçinin daxil etdiyi ilin "artıq il" (leap year - 366 gün) olub-olmadığını təyin etmək.Verilmiş iki ədədin Ən Böyük Ortaq Bölənini (ƏBOB) tapmaq.Verilmiş iki ədədin Ən Kiçik Ortaq Bölənini (ƏKOB) tapmaq.1-dən 100-ə qədər olan bütün sadə ədədləri ekrana yazdırmaq.Daxil edilən bir ədədin Armstrong ədədi (rəqəmlərinin kubları cəmi özünə bərabər olan ədəd) olub-olmadığını müəyyən etmək.İstifadəçi 0 daxil edənə qədər yazılan bütün ədədlərin hasilini tapmaq.Daxil edilən ədədin bütün bölənlərini və bölənlərinin sayını tapmaq.Verilmiş bir mətnin palindrom (sağdan və soldan oxunuşu eyni olan, məsələn "ata") olub-olmadığını yoxlamaq.Bir ədədin verilmiş dərəcədən qüvvətini (məsələn: $A^B$) dövr vasitəsilə hesablamaq.1-dən N-ə qədər olan ədədlər arasından rəqəmlərinin cəmi tək olanları ekrana yazdırmaq.İstifadəçidən 10 ədəd alıb, onların daxilindəki ən böyük və ən kiçik ədədlərin fərqini tapmaq.Daxil edilən onluq ədədin ikilik (binary) say sistemindəki qarşılığını tapmaq.İki fərqli ədədin "dost ədədlər" (hər birinin özü istisna olmaqla bölənlərinin cəmi digər ədədə bərabər olan ədədlər) olub-olmadığını yoxlamaq.İstifadəçinin daxil etdiyi imtahan balına əsasən hərflə qiymətləndirmə (A, B, C, D, E, F) şkalasını müəyyən etmək.Daxil edilən bir cümlədə neçə dənə sait hərfin olduğunu hesablamaq.İstifadəçi düzgün yaş həddi daxil edənə qədər (0 ilə 120 arasında) ondan yaşını təkrar soruşmaq.
+
+Daxil edilən ədədin rəqəmlərinin təkrarlanıb-təkrarlanmadığını (bütün rəqəmlərinin unikal olub-olmadığını) yoxlamaq.
+
+İstifadəçinin daxil etdiyi N ədədinə qədər olan bütün mükəmməl ədədləri tapmaq.
+
+Daxil edilən mətnin içindəki sözlərin sayını tapmaq.
+
+Verilmiş ədədin rəqəmlərinin hasilinin, həmin ədədin rəqəmlərinin cəminə tam bölünüb-bölünmədiyini yoxlamaq.
+
+İstifadəçinin daxil etdiyi sətir sayına uyğun olaraq ekrana ulduzlarla dik bucaqlı üçbucaq çəkmək.
+
+1-dən N-ə qədər olan ədədlər arasında yalnız 3-ə bölünən, lakin 9-a bölünməyən ədədlərin cəmini tapmaq.
+
+İki fərqli ədədin ortaq bölənlərinin sayını tapmaq.
+
+Daxil edilən ədədin sadə vuruqlarını ekrana çıxarmaq.
+
+İstifadəçi mənfi ədəd daxil edənə qədər daxil etdiyi bütün ədədlərin içindən ən böyük ikinci ədədi tapmaq.
+
+Verilmiş bir mətnin içindəki boşluqları silərək mətni bitişik formaya salmaq.
+
+İstifadəçinin daxil etdiyi N ədədinə qədər olan bütün Fibonacci ədədlərinin cəmini tapmaq.
+
+Daxil edilən ədədin rəqəmlərindən ən böyüyü ilə ən kiçiyinin hasilini tapmaq.
+
+Verilmiş bir ədədin kvadrat kökünün tam hissəsini heç bir hazır riyazi funksiya istifadə etmədən (yalnız dövrlərlə) tapmaq.
+
+İstifadəçinin daxil etdiyi imtahan balları daxilində neçə tələbənin ortalama baldan yüksək nəticə göstərdiyini müəyyən etmək.
+
+Daxil edilən bir mətnin daxilində müəyyən bir hərfin neçə dəfə təkrarlandığını tapmaq.
+
+Saniyə cinsindən verilmiş vaxtı saat, dəqiqə və saniyə formatına çevirmək (məsələn: 3665 saniyə -> 1 saat, 1 dəqiqə, 5 saniyə).
+
+1-dən 1000-ə qədər olan ədədlər daxilində rəqəmlərinin cəmi 10-a bərabər olan bütün ədədləri tapmaq.
+
+Daxil edilən iki ədədin aralarındakı fərqin sadə ədəd olub-olmadığını yoxlamaq.
+
+İstifadəçinin daxil etdiyi N sayda ədədin həndəsi ortasını hesablamaq.
+
+İstifadəçidən 5 fərqli söz alıb, simvol sayı ən çox olan sözü ekrana çıxarmaq.
+
