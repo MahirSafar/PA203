@@ -1,138 +1,74 @@
-1. İki ədədin cəmini tapmaq.
-2. Dairənin sahəsini hesablamaq.
-3. İstifadəçinin daxil etdiyi ədədin tək və ya cüt olduğunu müəyyən etmək.
-4. Daxil edilən iki ədəddən böyüyünü tapmaq.
-5. İstifadəçinin yaşının 18-dən böyük olub-olmadığını (yetkinlik yaşını) yoxlamaq.
-6. Havanın temperaturuna əsasən suyun maye, bərk (buz) və ya qaz (buxar) halında olduğunu tapmaq.
-7. Daxil edilən ədədin müsbət, mənfi və ya sıfır olduğunu müəyyən etmək.
-8. Həftənin sıra nömrəsinə (1-7) uyğun olaraq günün adını ekrana çıxarmaq.
-9. 1-dən 100-ə qədər olan bütün ədədləri ekrana yazdırmaq.
-10. Daxil edilən ədədin faktorialını hesablamaq.
-11. 1-dən N-ə qədər olan bütün cüt ədədlərin cəmini tapmaq.
-12. İstifadəçi ekrana "stop" yazana qədər daxil edilən ədədləri toplamaq.
-13. Daxil edilən ədədin neçə rəqəmli olduğunu tapmaq.
-14. İstifadəçidən düzgün şifrə (məsələn: "1234") daxil edilənə qədər yenidən şifrə istəmək.
-15. Daxil edilən ədədin sadə və ya mürəkkəb olduğunu müəyyən etmək.
-16. Verilmiş ədədin rəqəmlərinin cəmini tapmaq.
-17. Bir ədədin digər ədədə qalıqsız bölünüb-bölünmədiyini yoxlamaq.
-18. Daxil edilən mətnin (string) simvol sayını tapmaq.
-19. 1-dən 50-yə qədər olan ədədlər arasından həm 3-ə, həm də 5-ə bölünən ədədləri tapmaq.
-20. İstifadəçinin daxil etdiyi N sayda ədədin ədədi ortasını hesablamaq.
-1. Daxil edilən ədədin mükəmməl ədəd (özü istisna olmaqla bütün bölənlərinin cəmi özünə bərabər olan ədəd) olub-olmadığını yoxlamaq.
-2. Daxil edilən üç ədədi artan sıra ilə düzmək.
-3. Verilmiş ədədin rəqəmlərinin tərsini tapmaq (məsələn: 123 -> 321).
-4. Fibonacci ardıcıllığının ilk N həddini ekrana çıxarmaq.
-5. İstifadəçinin daxil etdiyi ilin "artıq il" (leap year - 366 gün) olub-olmadığını təyin etmək.
-6. Verilmiş iki ədədin Ən Böyük Ortaq Bölənini (ƏBOB) tapmaq.
-7. Verilmiş iki ədədin Ən Kiçik Ortaq Bölənini (ƏKOB) tapmaq.
-8. 1-dən 100-ə qədər olan bütün sadə ədədləri ekrana yazdırmaq.
-9. Daxil edilən bir ədədin Armstrong ədədi (rəqəmlərinin kubları cəmi özünə bərabər olan ədəd) olub-olmadığını müəyyən etmək.
-10. İstifadəçi 0 daxil edənə qədər yazılan bütün ədədlərin hasilini tapmaq.
-11. Daxil edilən ədədin bütün bölənlərini və bölənlərinin sayını tapmaq.
-12. Verilmiş bir mətnin palindrom (sağdan və soldan oxunuşu eyni olan, məsələn "ata") olub-olmadığını yoxlamaq.
-13. Bir ədədin verilmiş dərəcədən qüvvətini (məsələn: $A^B$) dövr vasitəsilə hesablamaq.
-14. 1-dən N-ə qədər olan ədədlər arasından rəqəmlərinin cəmi tək olanları ekrana yazdırmaq.
-15. İstifadəçidən 10 ədəd alıb, onların daxilindəki ən böyük və ən kiçik ədədlərin fərqini tapmaq.
-16. Daxil edilən onluq ədədin ikilik (binary) say sistemindəki qarşılığını tapmaq.
-17. İki fərqli ədədin "dost ədədlər" (hər birinin özü istisna olmaqla bölənlərinin cəmi digər ədədə bərabər olan ədədlər) olub-olmadığını yoxlamaq.
-18. İstifadəçinin daxil etdiyi imtahan balına əsasən hərflə qiymətləndirmə (A, B, C, D, E, F) şkalasını müəyyən etmək.
-19. Daxil edilən bir cümlədə neçə dənə sait hərfin olduğunu hesablamaq.
-20. İstifadəçi düzgün yaş həddi daxil edənə qədər (0 ilə 120 arasında) ondan yaşını təkrar soruşmaq.
-1. Daxil edilən ədədin rəqəmlərinin təkrarlanıb-təkrarlanmadığını (bütün rəqəmlərinin unikal olub-olmadığını) yoxlamaq.
-2. İstifadəçinin daxil etdiyi N ədədinə qədər olan bütün mükəmməl ədədləri tapmaq.
-3. Daxil edilən mətnin içindəki sözlərin sayını tapmaq.
-4. Verilmiş ədədin rəqəmlərinin hasilinin, həmin ədədin rəqəmlərinin cəminə tam bölünüb-bölünmədiyini yoxlamaq.
-5. İstifadəçinin daxil etdiyi sətir sayına uyğun olaraq ekrana ulduzlarla dik bucaqlı üçbucaq çəkmək.
-6. 1-dən N-ə qədər olan ədədlər arasında yalnız 3-ə bölünən, lakin 9-a bölünməyən ədədlərin cəmini tapmaq.
-7. İki fərqli ədədin ortaq bölənlərinin sayını tapmaq.
-8. Daxil edilən ədədin sadə vuruqlarını ekrana çıxarmaq.
-9. İstifadəçi mənfi ədəd daxil edənə qədər daxil etdiyi bütün ədədlərin içindən ən böyük ikinci ədədi tapmaq.
-10. Verilmiş bir mətnin içindəki boşluqları silərək mətni bitişik formaya salmaq.
-11. İstifadəçinin daxil etdiyi N ədədinə qədər olan bütün Fibonacci ədədlərinin cəmini tapmaq.
-12. Daxil edilən ədədin rəqəmlərindən ən böyüyü ilə ən kiçiyinin hasilini tapmaq.
-13. Verilmiş bir ədədin kvadrat kökünün tam hissəsini heç bir hazır riyazi funksiya istifadə etmədən (yalnız dövrlərlə) tapmaq.
-14. İstifadəçinin daxil etdiyi imtahan balları daxilində neçə tələbənin ortalama baldan yüksək nəticə göstərdiyini müəyyən etmək.
-15. Daxil edilən bir mətnin daxilində müəyyən bir hərfin neçə dəfə təkrarlandığını tapmaq.
-16. Saniyə cinsindən verilmiş vaxtı saat, dəqiqə və saniyə formatına çevirmək (məsələn: 3665 saniyə -> 1 saat, 1 dəqiqə, 5 saniyə).
-17. 1-dən 1000-ə qədər olan ədədlər daxilində rəqəmlərinin cəmi 10-a bərabər olan bütün ədədləri tapmaq.
-18. Daxil edilən iki ədədin aralarındakı fərqin sadə ədəd olub-olmadığını yoxlamaq.
-19. İstifadəçinin daxil etdiyi N sayda ədədin həndəsi ortasını hesablamaq.
-20. İstifadəçidən 5 fərqli söz alıb, simvol sayı ən çox olan sözü ekrana çıxarmaq.
+---
 
+## 1. Məntiqi və Riyazi Alqoritmlər (Variables, Conditionals)
 
-
-
-Aşağıda bütün tapşırıqlar rus dilinə tərcümə olunub:
-
-### Базовый уровень
-
-1. Найти сумму двух чисел.
-2. Вычислить площадь круга.
-3. Определить, является ли введённое число чётным или нечётным.
-4. Найти большее из двух введённых чисел.
-5. Проверить, достиг ли пользователь совершеннолетия (старше 18 лет).
-6. Определить состояние воды (твёрдое, жидкое или газообразное) по температуре.
-7. Определить, является ли введённое число положительным, отрицательным или нулём.
-8. По номеру дня недели (1–7) вывести его название.
-9. Вывести на экран все числа от 1 до 100.
-10. Вычислить факториал введённого числа.
-11. Найти сумму всех чётных чисел от 1 до N.
-12. Суммировать вводимые числа до тех пор, пока пользователь не введёт `"stop"`.
-13. Определить количество цифр во введённом числе.
-14. Запрашивать пароль до тех пор, пока пользователь не введёт правильный (например, `"1234"`).
-15. Определить, является ли введённое число простым или составным.
-16. Найти сумму цифр введённого числа.
-17. Проверить, делится ли одно число на другое без остатка.
-18. Определить количество символов во введённой строке.
-19. Найти все числа от 1 до 50, которые делятся одновременно на 3 и на 5.
-20. Вычислить среднее арифметическое N чисел, введённых пользователем.
+1. **Ədədin cüt və ya tək olduğunu tapmaq:** İstifadəçinin daxil etdiyi ədədin 2-yə bölünmədən qalan qalığını yoxlayaraq cüt və ya tək olduğunu müəyyən edən alqoritm.
+2. **Üç ədəddən ən böyüyünü tapmaq:** Daxil edilən 3 müxtəlif ədədi `if-else` şərtləri vasitəsilə müqayisə edib ən böyüyünü seçən alqoritm.
+3. **Faktorialın hesablanması:** Daxil edilən $N$ ədədinin faktorialını ($1 \times 2 \times \dots \times N$) dövr (`for` və ya `while`) vasitəsilə hesablayan alqoritm.
+4. **Ədədin rəqəmləri cəmini tapmaq:** Daxil edilən ədədi 10-a bölmə qalıqları ilə tək-tək rəqəmlərinə ayırıb toplayan alqoritm.
+5. **Ədədin sadə və ya mürəkkəb olduğunu tapmaq:** Ədədin 2-dən özünə qədər olan ədədlərə bölünüb-bölünmədiyini yoxlayan alqoritm.
+6. **Fibonaççi ardıcıllığı:** Verilmiş $N$ sayda Fibonaççi ədədini (hər ədəd özündən əvvəlki ikisinin cəmidir: $0, 1, 1, 2, 3, 5\dots$) dövr ilə generasiya edən alqoritm.
+7. **Ədədin mərtəbə sayını (rəqəm sayını) tapmaq:** Ədədi 0 olana qədər 10-a bölərək neçə rəqəmdən ibarət olduğunu sayan alqoritm.
+8. **Ədədin tərsini tapmaq (Reverse Number):** Daxil edilən ədədin rəqəmlərinin sırasını tərsinə çevirən alqoritm (Məsələn: `1234` ədədini `4321`-ə çevirmək).
+9. **Mükəmməl ədədi (Perfect Number) tapmaq:** Ədədin özündən başqa bütün müsbət bölənlərinin cəminin özünə bərabər olub-olmadığını yoxlayan alqoritm (Məsələn: $6 = 1 + 2 + 3$).
+10. **Armstrong ədədini yoxlamaq:** $N$-rəqəmli ədədin hər bir rəqəminin $N$-ci dərəcədən qüvvətləri cəminin ədədin özünə bərabər olub-olmadığını tapan alqoritm (Məsələn: $153 = 1^3 + 5^3 + 3^3$).
+11. **Ədədin qüvvətini hesablamaq:** Verilmiş $A$ ədədinin $B$-ci dərəcədən qüvvətini ($A^B$) hazır riyazi funksiya işlətmədən, dövr vasitəsilə hesablayan alqoritm.
+12. **İki ədədin ƏBOB və ƏKOK-unun tapılması:** Evklid alqoritmi vasitəsilə iki ədədin Ən Böyük Ortaq Bölənini (ƏBOB) və buradan çıxarışla Ən Kiçik Ortaq Bölünənini (ƏKOK) hesablayan alqoritm.
+13. **Vurma cədvəlini generasiya etmək:** İç-içə dövrlər (nested loops) vasitəsilə 1-dən 10-a qədər ədədlərin vurma cədvəlini formalaşdıran alqoritm.
+14. **Paskal Üçbucağının $N$-ci sətirini tapmaq:** Kombinatorika məntiqi və ya əvvəlki sətrin cəmləri ilə Paskal üçbucağının elementlərini hesablayan alqoritm.
+15. **Avtomorf ədədin (Automorphic Number) tapılması:** Ədədin kvadratının son rəqəmlərinin ədədin özü ilə bitdiyini yoxlayan alqoritm (Məsələn: $5^2 = 2\mathbf{5}$, $25^2 = 6\mathbf{25}$).
+16. **Harshad (Niven) ədədinin yoxlanılması:** Ədədin öz rəqəmlərinin cəminə tam bölünüb-bölünmədiyini müəyyən edən alqoritm (Məsələn: $18 \rightarrow 1+8=9$, $18 \% 9 = 0$).
+17. **Məsafənin/Vahidlərin çevrilməsi:** İstifadəçidən alınan daxiletməyə əsasən Celsi ilə Farangeyt temperatur və ya Metr ilə Kilometr arasında seçimə görə hesablaşma aparan alqoritm.
+18. **İki ədədin vurulmasını toplama ilə etmək:** Vurma operatorunu (`*`) istifadə etmədən, dövr vasitəsilə birinci ədədi ikinci ədədin sayı qədər üst-üstə toplayan alqoritm.
+19. **Qalıqlı bölməni çıxma ilə etmək:** Bölmə (`/`) və qalıq (`%`) operatorlarını işlətmədən, böyük ədəddən kiçik ədədi mənfi olana qədər çıxaraq qismət və qalığı tapan alqoritm.
+20. **Saniyəni Saat, Dəqiqə və Saniyəyə çevirmək:** Verilmiş ümumi saniyə dəyərini (məsələn: 3665 saniyə) riyazi bölmələrlə "1 saat 1 dəqiqə 5 saniyə" şəklində parçalayan alqoritm.
+21. **Kəsr hissəni tam hissədən ayırmaq:** Onluq kəsr ədədinin vergüldən əvvəlki tam və vergüldən sonra kəsr hissəsini ayrıca müəyyən edən alqoritm.
 
 ---
 
-### Средний уровень
+## 2. Massiv (Array) Alqoritmləri
 
-1. Проверить, является ли введённое число совершенным (сумма всех его делителей, кроме самого числа, равна этому числу).
-2. Отсортировать три введённых числа по возрастанию.
-3. Перевернуть цифры введённого числа (например: 123 → 321).
-4. Вывести первые N чисел последовательности Фибоначчи.
-5. Определить, является ли введённый год високосным.
-6. Найти наибольший общий делитель (НОД) двух чисел.
-7. Найти наименьшее общее кратное (НОК) двух чисел.
-8. Вывести все простые числа от 1 до 100.
-9. Проверить, является ли число числом Армстронга (сумма кубов его цифр равна самому числу).
-10. Найти произведение всех введённых чисел до тех пор, пока пользователь не введёт 0.
-11. Найти все делители введённого числа и их количество.
-12. Проверить, является ли введённая строка палиндромом (например, «топот»).
-13. Вычислить степень числа (A^B) с помощью цикла.
-14. Вывести все числа от 1 до N, сумма цифр которых нечётная.
-15. Ввести 10 чисел и найти разницу между максимальным и минимальным из них.
-16. Перевести десятичное число в двоичную систему счисления.
-17. Проверить, являются ли два числа дружественными.
-18. Определить буквенную оценку (A, B, C, D, E, F) по введённому экзаменационному баллу.
-19. Подсчитать количество гласных букв во введённом предложении.
-20. Запрашивать возраст пользователя до тех пор, пока он не введёт корректное значение (от 0 до 120).
+1. **Massivin ən böyük (Max) və ən kiçik (Min) elementini tapmaq:** Massivin ilk elementini mərkəz götürüb dövr vasitəsilə bütün elementlərlə müqayisə edərək Min və Max dəyərləri müəyyən edən alqoritm.
+2. **Massiv elementlərinin ədədi ortasını tapmaq:** Massivdəki bütün elementləri toplayıb ümumi element sayına bölən alqoritm.
+3. **Massivi tərsinə çevirmək (Reverse Array):** Massivin elementlərinin yerini başdan və sondan mərkəzə doğru qarşılıqlı dəyişdirərək tərsinə çevirən alqoritm.
+4. **Xətti Axtarış (Linear Search):** Massivdə axtarılan ədədin olub-olmadığını tək-tək elementləri gəzərək tapan alqoritm.
+5. **İkili Axtarış (Binary Search):** Sıralanmış massivdə orta elementi tapıb axtarılan dəyərə görə sağ və ya sol tərəfə keçərək axtarışı $O(\log N)$ zamanla icra edən alqoritm.
+6. **Qabarcıq Sıralaması (Bubble Sort):** Massivdəki qonşu elementləri cüt-cüt müqayisə edib yeri səhv olanları dəyişərək massivi kiçikdən-böyüyə sıralayan alqoritm.
+7. **Massivdəki təkrarlanan elementləri tapmaq:** İç-içə dövrlər vasitəsilə massivdə eyni olan dəyərləri müəyyən edən alqoritm.
+8. **İkinci ən böyük elementi tapmaq:** Massivi sıralamadan ($O(N)$ zaman daxilində) tək bir dövrdə ən böyük və ikincisi olan elementi təyin edən alqoritm.
+9. **Massivdəki sıfırları sona sürüşdürmək (Move Zeroes):** Massivin daxilindəki bütün `0` dəyərlərini digər ədədlərin nisbi sırasını bozmadan massivin sonuna yığan alqoritm.
+10. **Massivi Sağa/Sola fırlatmaq (Rotate Array):** Massivin elementlərini $K$ addım qədər sağa və ya sola sürüşdürərək kənara çıxanları əvvələ gətirən alqoritm.
+11. **Çatışmayan ədədi tapmaq (Missing Number):** $1$-dən $N$-ə qədər sıralı olması gərəkən massivdə buraxılmış tək ədədi riyazi cəm düsturu vasitəsilə tapan alqoritm.
+12. **Monoton massiv yoxlanışı:** Massivin tam olaraq artan və ya tam olaraq azalan sıra ilə düzüldüyünü yoxlayan alqoritm.
+13. **Seçimlə Sıralama (Selection Sort):** Massivdəki ən kiçik elementi tapıb birinci yerə, növbəti ən kiçik elementi ikinci yerə qoyaraq sıralama aparan alqoritm.
+14. **Daxil Etmə ilə Sıralama (Insertion Sort):** Massivin elementlərini kartları əldə düzər kimi hər yeni elementi sol tərəfdəki yerinə yerləşdirərək sıralayan alqoritm.
+15. **Massivdə yalnız tək dəfə təkrarlanan elementi tapmaq (Single Number):** Bütün elementlərin cüt-cüt işləndiyi massivdə tək qalan yeganə elementi tapan alqoritm.
+16. **Massivin kənar elementlərinin cəmini tapmaq:** Massivin yalnız ilk və sonuncu elementlərini toplayan alqoritm.
+17. **Massivdə mənfi ədədləri müsbətlərlə əvəzləmək:** Massiv daxilindəki bütün mənfi ədədləri moduluna (müsbət halına) və ya sıfıra çevirən alqoritm.
+18. **Müsbət və Mənfi ədədlərin sayını ayrı-ayrı tapmaq:** Massivi bir dövr ilə gəzərək neçə müsbət, neçə mənfi və neçə sıfır olduğunu sayan alqoritm.
+19. **Sıralanmış iki massivin birləşdirilməsi (Merge Sorted Arrays):** Hər ikisi sıralı olan iki fərqli massivi tək bir sıralı massiv halında birləşdirən alqoritm.
+20. **Massivdəki median (orta dəyər) elementini tapmaq:** Massivi sıraladıqdan sonra tək sayda element varsa tam ortadakını, cüt saydadırsa ortadakı iki elementin ədədi ortasını tapan alqoritm.
+21. **Massivdə artan ardıcıllığın pozulduğu yeri tapmaq:** Massiv boyunca gəzərək hansı indeksdəki elementin özündən əvvəlkindən kiçik olduğunu təyin edən alqoritm.
 
 ---
 
-### Продвинутый уровень
+## 3. String (Mətn) və Metod Alqoritmləri
 
-1. Проверить, повторяются ли цифры во введённом числе (все ли цифры уникальны).
-2. Найти все совершенные числа от 1 до N.
-3. Подсчитать количество слов во введённой строке.
-4. Проверить, делится ли произведение цифр числа на сумму его цифр без остатка.
-5. Нарисовать прямоугольный треугольник из символов `*` по количеству строк, введённому пользователем.
-6. Найти сумму всех чисел от 1 до N, которые делятся на 3, но не делятся на 9.
-7. Определить количество общих делителей двух чисел.
-8. Вывести простые множители введённого числа.
-9. Находить второе по величине число среди введённых пользователем до тех пор, пока не будет введено отрицательное число.
-10. Удалить все пробелы из введённой строки.
-11. Найти сумму всех чисел Фибоначчи до N.
-12. Найти произведение наибольшей и наименьшей цифры введённого числа.
-13. Найти целую часть квадратного корня числа без использования готовых математических функций (только с помощью циклов).
-14. Определить, сколько студентов набрали балл выше среднего среди введённых результатов экзамена.
-15. Подсчитать, сколько раз заданная буква встречается во введённой строке.
-16. Преобразовать количество секунд в часы, минуты и секунды (например: 3665 секунд → 1 час, 1 минута, 5 секунд).
-17. Найти все числа от 1 до 1000, сумма цифр которых равна 10.
-18. Проверить, является ли разность двух введённых чисел простым числом.
-19. Вычислить среднее геометрическое N чисел, введённых пользователем.
-20. Запросить у пользователя 5 различных слов и вывести слово с наибольшим количеством символов.
+1. **Palindrom sözü tapmaq:** Mətnin düzünə və tərsinə oxunuşunun eyni olub-olmadığını (məsələn: "ana", "radar") yoxlayan alqoritm.
+2. **Mətndəki sait hərflərin sayını tapmaq:** Mətn daxilindəki hər bir simvolu gəzərək sait hərflərin (`a, e, i, o, u`) neçə dəfə işləndiyini sayan alqoritm.
+3. **Mətni tərsinə çevirmək:** Metoda ötürülən string-in simvollarını sondan başa doğru yeni bir string-ə toplayaraq qaytaran alqoritm.
+4. **Sözlərin sayını tapmaq:** Mətndəki boşluq simvollarını və ya `Split` məntiqini analiz edərək cümlədə neçə söz olduğunu tapan alqoritm.
+5. **Anakram yoxlanışı:** İki fərqli sözün tam olaraq eyni hərflərdən və eyni sayda təşkil olunub-olunmadığını müəyyən edən alqoritm.
+6. **İki massivin kəsişməsini (ümumi elementlərini) tapmaq:** İki müxtəlif massivdə hər ikisində mövcud olan ortaq elementləri tapıb yeni massivə toplayan alqoritm.
+7. **Mətndə ən çox təkrarlanan simvolu tapmaq:** Mətn daxilindəki simvolların tezliyini sayaraq ən çox işlənən simvolu təyin edən alqoritm.
+8. **Cümlədəki ən uzun sözü tapmaq:** Mətni sözlərə ayırıb simvol sayı ən çox olan ilk sözü geri qaytaran alqoritm.
+9. **Daxil edilən simvolun tipini təyin etmək:** Daxil edilən tək bir simvolun böyük hərf, kiçik hərf, rəqəm və ya xüsusi simvol olmasını ASCII kodları vasitəsilə yoxlayan alqoritm.
+10. **Mətndəki bütün boşluqları müəyyən simvolla əvəzləmək:** Hazır replace metodu istifadə etmədən mətn daxilindəki ` ` (space) simvollarını (məsələn `-` simvolu ilə) dəyişdirən alqoritm.
+11. **Sezar Şifrələməsi (Caesar Cipher):** Mətndəki hər bir hərfi əlifbada $K$ qədər sonrakı hərf ilə əvəzləyərək sadə şifrələmə edən alqoritm.
+12. **Formatlaşdırılmamış adı düzəltmək (Title Case):** Daxil edilən ad və soyadın ilk hərflərini böyük, digər hərflərini kiçik hərfə çevirən alqoritm (Məsələn: "aLİ vƏLİyEv" -> "Ali Vəliyev").
+13. **Mətndəki rəqəmlərin cəmini tapmaq:** Düzgün mətn daxilində yer alan rəqəm simvollarını (məsələn: "a1b5c9") ayıran və toplayan alqoritm.
+14. **Mətni "Pangram"lıq üzrə yoxlamaq:** Mətnin əlifbadakı bütün hərflərdən ən azı bir dəfə daxil edib-etmədiyini yoxlayan alqoritm.
+15. **Cümlədəki hər sözün ilk hərfini çıxarmaq (Akronim yaratmaq):** Verilmiş ifadədən baş hərfləri götürərək qısaltma tərtib edən alqoritm (Məsələn: "United Nations" $\rightarrow$ "UN").
+16. **Mətndən təkrar olunan simvolları silmək:** Mətndə hər simvoldan yalnız birincisini saxlayaraq unikal simvollardan ibarət yeni mətn yaradan alqoritm (Məsələn: "program" $\rightarrow$ "progam").
+17. **İki string-in eyni uzunluqda və fərqli indekslərinin sayını tapmaq (Hamming Distance):** Eyni uzunluqlu iki mətni müqayisə edərək neçə simvolun üst-üstə düşmədiyini sayan alqoritm.
+18. **Mətndə xüsusi simvolların sayını tapmaq:** Mətn daxilindəki hərf, rəqəm və boşluq olmayan simvolların (məsələn: `!`, `@`, `#`) sayını təyin edən alqoritm.
