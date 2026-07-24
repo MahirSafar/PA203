@@ -1,0 +1,159 @@
+---
+
+<p><a href="#rus" style="display:inline-block;padding:8px 12px;background:#0366d6;color:#fff;border-radius:6px;text-decoration:none;">Русский</a></p>
+
+## 1. Məntiqi və Riyazi Alqoritmlər (Variables, Conditionals)
+
+1. **Ədədin cüt və ya tək olduğunu tapmaq:** İstifadəçinin daxil etdiyi ədədin 2-yə bölünmədən qalan qalığını yoxlayaraq cüt və ya tək olduğunu müəyyən edən alqoritm.
+2. **Üç ədəddən ən böyüyünü tapmaq:** Daxil edilən 3 müxtəlif ədədi `if-else` şərtləri vasitəsilə müqayisə edib ən böyüyünü seçən alqoritm.
+3. **Faktorialın hesablanması:** Daxil edilən $N$ ədədinin faktorialını ($1 \\times 2 \\times \\\dots \\times N$) dövr (`for` və ya `while`) vasitəsilə hesablayan alqoritm.
+4. **Ədədin rəqəmləri cəmini tapmaq:** Daxil edilən ədədi 10-a bölmə qalıqları ilə tək-tək rəqəmlərinə ayırıb toplayan alqoritm.
+5. **Ədədin sadə və ya mürəkkəb olduğunu tapmaq:** Ədədin 2-dən özünə qədər olan ədədlərə bölünüb-bölünmədiyini yoxlayan alqoritm.
+6. **Fibonaççi ardıcıllığı:** Verilmiş $N$ sayda Fibonaççi ədədini (hər ədəd özündən əvvəlki ikisinin cəmidir: $0, 1, 1, 2, 3, 5\\dots$) dövr ilə generasiya edən alqoritm.
+7. **Ədədin mərtəbə sayını (rəqəm sayını) tapmaq:** Ədədi 0 olana qədər 10-a bölərək neçə rəqəmdən ibarət olduğunu sayan alqoritm.
+8. **Ədədin tərsini tapmaq (Reverse Number):** Daxil edilən ədədin rəqəmlərinin sırasını tərsinə çevirən alqoritm (Məsələn: `1234` ədədini `4321`-ə çevirmək).
+9. **Mükəmməl ədədi (Perfect Number) tapmaq:** Ədədin özündən başqa bütün müsbət bölənlərinin cəminin özünə bərabər olub-olmadığını yoxlayan alqoritm (Məsələn: $6 = [...]
+10. **Armstrong ədədini yoxlamaq:** $N$-rəqəmli ədədin hər bir rəqəminin $N$-ci dərəcədən qüvvətləri cəminin ədədin özünə bərabər olub-olmadığını tapan alqoritm (Məsə[...]
+11. **Ədədin qüvvətini hesablamaq:** Verilmiş $A$ ədədinin $B$-ci dərəcədən qüvvətini ($A^B$) hazır riyazi funksiya işlətmədən, dövr vasitəsilə hesablayan alqoritm.
+12. **İki ədədin ƏBOB və ƏKOK-unun tapılması:** Evklid alqoritmi vasitəsilə iki ədədin Ən Böyük Ortaq Bölənini (ƏBOB) və buradan çıxarışla Ən Kiçik Ortaq Bölünənini (ƏKOB) tapmaq.
+13. **Vurma cədvəlini generasiya etmək:** İç-içə dövrlər (nested loops) vasitəsilə 1-dən 10-a qədər ədədlərin vurma cədvəlini formalaşdıran alqoritm.
+14. **Paskal Üçbucağının $N$-ci sətirini tapmaq:** Kombinatorika məntiqi və ya əvvəlki sətrin cəmləri ilə Paskal üçbucağının elementlərini hesablayan alqoritm.
+15. **Avtomorf ədədin (Automorphic Number) tapılması:** Ədədin kvadratının son rəqəmlərinin ədədin özü ilə bitdiyini yoxlayan alqoritm (Məsələn: $5^2 = 2\\mathbf{5}$, $25^2 = 6\\m[...]
+16. **Harshad (Niven) ədədinin yoxlanılması:** Ədədin öz rəqəmlərinin cəminə tam bölünüb-bölünmədiyini müəyyən edən alqoritm (Məsələn: $18 \\rightarrow 1+8=9$, $18 \\% 9 = 0[...]
+17. **Məsafənin/Vahidlərin çevrilməsi:** İstifadəçidən alınan daxiletməyə əsasən Celsi ilə Farangeyt temperatur və ya Metr ilə Kilometr arasında seçimə görə hesablaşma apara[...]
+18. **İki ədədin vurulmasını toplama ilə etmək:** Vurma operatorunu (`*`) istifadə etmədən, dövr vasitəsilə birinci ədədi ikinci ədədin sayı qədər üst-üstə toplayan alqoritm[...]
+19. **Qalıqlı bölməni çıxma ilə etmək:** Bölmə (`/`) və qalıq (`%`) operatorlarını işlətmədən, böyük ədəddən kiçik ədədi mənfi olana qədər çıxaraq qismət və qalı�[...]
+20. **Saniyəni Saat, Dəqiqə və Saniyəyə çevirmək:** Verilmiş ümumi saniyə dəyərini (məsələn: 3665 saniyə) riyazi bölmələrlə "1 saat 1 dəqiqə 5 saniyə" şəklində parçalay[...]
+21. **Kəsr hissəni tam hissədən ayırmaq:** Onluq kəsr ədədinin vergüldən əvvəlki tam və vergüldən sonra kəsr hissəsini ayrıca müəyyən edən alqoritm.
+
+---
+
+## 2. Massiv (Array) Alqoritmləri
+
+1. **Massivin ən böyük (Max) və ən kiçik (Min) elementini tapmaq:** Massivin ilk elementini mərkəz götürüb dövr vasitəsilə bütün elementlərlə müqayisə edərək Min və Max dəy[...]
+2. **Massiv elementlərinin ədədi ortasını tapmaq:** Massivdəki bütün elementləri toplayıb ümumi element sayına bölən alqoritm.
+3. **Massivi tərsinə çevirmək (Reverse Array):** Massivin elementlərinin yerini başdan və sondan mərkəzə doğru qarşılıqlı dəyişdirərək tərsinə çevirən alqoritm.
+4. **Xətti Axtarış (Linear Search):** Massivdə axtarılan ədədin olub-olmadığını tək-tək elementləri gəzərək tapan alqoritm.
+5. **İkili Axtarış (Binary Search):** Sıralanmış massivdə orta elementi tapıb axtarılan dəyərə görə sağ və ya sol tərəfə keçərək axtarışı $O(\\log N)$ zamanla icra edən al[...]
+6. **Qabarcıq Sıralaması (Bubble Sort):** Massivdəki qonşu elementləri cüt-cüt müqayisə edib yeri səhv olanları dəyişərək massivi kiçikdən-böyüyə sıralayan alqoritm.
+7. **Massivdəki təkrarlanan elementləri tapmaq:** İç-içə dövrlər vasitəsilə massivdə eyni olan dəyərləri müəyyən edən alqoritm.
+8. **İkinci ən böyük elementi tapmaq:** Massivi sıralamadan ($O(N)$ zaman daxilində) tək bir dövrdə ən böyük və ikincisi olan elementi təyin edən alqoritm.
+9. **Massivdəki sıfırları sona sürüşdürmək (Move Zeroes):** Massivin daxilindəki bütün `0` dəyərlərini digər ədədlərin nisbi sırasını bozmadan massivin sonuna yığan alqorit[...]
+10. **Massivi Sağa/Sola fırlatmaq (Rotate Array):** Massivin elementlərini $K$ addım qədər sağa və ya sola sürüşdürərək kənara çıxanları əvvələ gətirən alqoritm.
+11. **Çatışmayan ədədi tapmaq (Missing Number):** $1$-dən $N$-ə qədər sıralı olması gərəkən massivdə buraxılmış tək ədədi riyazi cəm düsturu vasitəsilə tapan alqoritm.
+12. **Monoton massiv yoxlanışı:** Massivin tam olaraq artan və ya tam olaraq azalan sıra ilə düzüldüyünü yoxlayan alqoritm.
+13. **Seçimlə Sıralama (Selection Sort):** Massivdəki ən kiçik elementi tapıb birinci yerə, növbəti ən kiçik elementi ikinci yerə qoyaraq sıralama aparan alqoritm.
+14. **Daxil Etmə ilə Sıralama (Insertion Sort):** Massivin elementlərini kartları əldə düzər kimi hər yeni elementi sol tərəfdəki yerinə yerləşdirərək sıralayan alqoritm.
+15. **Massivdə yalnız tək dəfə təkrarlanan elementi tapmaq (Single Number):** Bütün elementlərin cüt-cüt işləndiyi massivdə tək qalan yeganə elementi tapan alqoritm.
+16. **Massivin kənar elementlərinin cəmini tapmaq:** Massivin yalnız ilk və sonuncu elementlərini toplayan alqoritm.
+17. **Massivdə mənfi ədədləri müsbətlərlə əvəzləmək:** Massiv daxilindəki bütün mənfi ədədləri moduluna (müsbət halına) və ya sıfıra çevirən alqoritm.
+18. **Müsbət və Mənfi ədədlərin sayını ayrı-ayrı tapmaq:** Massivi bir dövr ilə gəzərək neçə müsbət, neçə mənfi və neçə sıfır olduğunu sayan alqoritm.
+19. **Sıralanmış iki massivin birləşdirilməsi (Merge Sorted Arrays):** Hər ikisi sıralı olan iki fərqli massivi tək bir sıralı massiv halında birləşdirən alqoritm.
+20. **Massivdəki median (orta dəyər) elementini tapmaq:** Massivi sıraladıqdan sonra tək sayda element varsa tam ortadakını, cüt saydadırsa ortadakı iki elementin ədədi ortasını tap[...]
+21. **Massivdə artan ardıcıllığın pozulduğu yeri tapmaq:** Massiv boyunca gəzərək hansı indeksdəki elementin özündən əvvəlkindən kiçik olduğunu təyin edən alqoritm.
+
+---
+
+## 3. String (Mətn) və Metod Alqoritmləri
+
+1. **Palindrom sözü tapmaq:** Mətnin düzünə və tərsinə oxunuşunun eyni olub-olmadığını (məsələn: "ana", "radar") yoxlayan alqoritm.
+2. **Mətndəki sait hərflərin sayını tapmaq:** Mətn daxilindəki hər bir simvolu gəzərək sait hərflərin (`a, e, i, o, u`) neçə dəfə işləndiyini sayan alqoritm.
+3. **Mətni tərsinə çevirmək:** Metoda ötürülən string-in simvollarını sondan başa doğru yeni bir string-ə toplayaraq qaytaran alqoritm.
+4. **Sözlərin sayını tapmaq:** Mətndəki boşluq simvollarını və ya `Split` məntiqini analiz edərək cümlədə neçə söz olduğunu tapan alqoritm.
+5. **Anakram yoxlanışı:** İki fərqli sözün tam olaraq eyni hərflərdən və eyni sayda təşkil olunub-olunmadığını müəyyən edən alqoritm.
+6. **İki massivin kəsişməsini (ümumi elementlərini) tapmaq:** İki müxtəlif massivdə hər ikisində mövcud olan ortaq elementləri tapıb yeni massivə toplayan alqoritm.
+7. **Mətndə ən çox təkrarlanan simvolu tapmaq:** Mətn daxilindəki simvolların tezliyini sayaraq ən çox işlənən simvolu təyin edən alqoritm.
+8. **Cümlədəki ən uzun sözü tapmaq:** Mətni sözlərə ayırıb simvol sayı ən çox olan ilk sözü geri qaytaran alqoritm.
+9. **Daxil edilən simvolun tipini təyin etmək:** Daxil edilən tək bir simvolun böyük hərf, kiçik hərf, rəqəm və ya xüsusi simvol olmasını ASCII kodları vasitəsilə yoxlayan alqor[...]
+10. **Mətndəki bütün boşluqları müəyyən simvolla əvəzləmək:** Hazır replace metodu istifadə etmədən mətn daxilindəki ` ` (space) simvollarını (məsələn: `-` simvolu ilə) də[...]
+11. **Sezar Şifrələməsi (Caesar Cipher):** Mətndəki hər bir hərfi əlifbada $K$ qədər sonrakı hərf ilə əvəzləyərək sadə şifrələmə edən alqoritm.
+12. **Formatlaşdırılmamış adı düzəltmək (Title Case):** Daxil edilən ad və soyadın ilk hərflərini böyük, digər hərflərini kiçik hərfə çevirən alqoritm (Məsələn: "aLİ v�[...]
+13. **Mətndəki rəqəmlərin cəmini tapmaq:** Düzgün mətn daxilində yer alan rəqəm simvollarını (məsələn: "a1b5c9") ayıran və toplayan alqoritm.
+14. **Mətni "Pangram"lıq üzrə yoxlamaq:** Mətnin əlifbadakı bütün hərflərdən ən azı bir dəfə daxil edib-etmədiyini yoxlayan alqoritm.
+15. **Cümlədəki hər sözün ilk hərfini çıxarmaq (Akronim yaratmaq):** Verilmiş ifadədən baş hərfləri götürərək qısaltma tərtib edən alqoritm (Məsələn: "United Nations" $\\ri[...]
+16. **Mətndən təkrar olunan simvolları silmək:** Mətndə hər simvoldan yalnız birincisini saxlayaraq unikal simvollardan ibarət yeni mətn yaradan alqoritm (Məsələn: "program" $\\righta[...]
+17. **İki string-in eyni uzunluqda və fərqli indekslərinin sayını tapmaq (Hamming Distance):** Eyni uzunluqlu iki mətni müqayisə edərək neçə simvolun üst-üstə düşmədiyini sayan [...]
+18. **Mətndə xüsusi simvolların sayını tapmaq:** Mətn daxilindəki hərf, rəqəm və boşluq olmayan simvolların (məsələn: `!`, `@`, `#`) sayını təyin edən alqoritm.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 1. Логические и математические алгоритмы (Variables, Conditionals)
+
+<a id="rus"></a>
+
+1. **Определить, является ли число чётным или нечётным:** Проверить остаток от деления введённого пользовате�[...]
+2. **Найти наибольшее из трёх чисел:** Сравнить три различных числа с помощью условий `if-else` и определить наибо[...]
+3. **Вычисление факториала:** С помощью цикла (`for` или `while`) вычислить факториал числа `N` (`1 × 2 × ... × N`).
+4. **Найти сумму цифр числа:** Разделить число на отдельные цифры с помощью остатка от деления на 10 и найти их �[...]
+5. **Определить, является ли число простым или составным:** Проверить, делится ли число без остатка на числа о�[...]
+6. **Последовательность Фибоначчи:** Сгенерировать первые `N` чисел Фибоначчи с помощью цикла (`0, 1, 1, 2, 3, 5...`).
+7. **Определить количество цифр в числе:** Делить число на 10 до тех пор, пока оно не станет 0, подсчитывая колич[...]
+8. **Развернуть число (Reverse Number):** Изменить порядок цифр числа в обратную сторону (например, `1234 → 4321`).
+9. **Проверить, является ли число совершенным (Perfect Number):** Определить, равна ли сумма всех положительных дели�[...]
+10. **Проверить число Армстронга:** Проверить, равна ли сумма цифр числа, возведённых в степень количества ци�[...]
+11. **Возведение числа в степень:** Вычислить `A^B` с помощью цикла без использования встроенных математически�[...]
+12. **Найти НОД и НОК двух чисел:** Использовать алгоритм Евклида для нахождения НОД, а затем вычислить НОК.
+13. **Сгенерировать таблицу умножения:** Построить таблицу умножения от 1 до 10 с помощью вложенных циклов.
+14. **Найти N-ю строку треугольника Паскаля:** Вычислить элементы строки с использованием комбинаторики или п[...]
+15. **Проверить автоморфное число (Automorphic Number):** Проверить, заканчивается ли квадрат числа самим числом (`5² = 25[...]
+16. **Проверить число Харшада (Niven Number):** Проверить, делится ли число на сумму своих цифр без остатка (`18 → 1+8=9`, [...]
+17. **Преобразование единиц измерения:** Выполнить преобразование температуры (Цельсий ↔ Фаренгейт) или дли�[...]
+18. **Умножение двух чисел с помощью сложения:** Выполнить умножение без использования оператора `*`, многокра[...]
+19. **Деление с остатком с помощью вычитания:** Найти частное и остаток без использования операторов `/` и `%`, п�[...]
+20. **Преобразовать секунды в часы, минуты и секунды:** Разбить общее количество секунд (например, `3665`) на часы[...]
+21. **Отделить дробную часть от целой:** Определить отдельно целую и дробную части вещественного числа.
+
+---
+
+# 2. Алгоритмы для массивов (Arrays)
+
+1. **Найти максимальный и минимальный элемент массива:** Пройти по массиву и определить минимальное и максим[...]
+2. **Найти среднее арифметическое элементов массива:** Сложить все элементы массива и разделить сумму на их �[...]
+3. **Развернуть массив (Reverse Array):** Поменять местами элементы массива от начала и конца к центру.
+4. **Линейный поиск (Linear Search):** Последовательно проверить все элементы массива на наличие искомого значения.
+5. **Бинарный поиск (Binary Search):** Выполнить поиск в отсортированном массиве, последовательно деля диапазон поп[...]
+6. **Сортировка пузырьком (Bubble Sort):** Сравнивать соседние элементы и менять их местами, пока массив не будет о�[...]
+7. **Найти повторяющиеся элементы массива:** Использовать вложенные циклы для поиска одинаковых элементов.
+8. **Найти второй по величине элемент:** Найти второй максимальный элемент за один проход без сортировки (`O(N)`[...]
+9. **Переместить все нули в конец массива (Move Zeroes):** Перенести все значения `0` в конец массива, сохранив поряд�[...]
+10. **Повернуть массив вправо/влево (Rotate Array):** Сдвинуть элементы массива на `K` позиций вправо или влево.
+11. **Найти отсутствующее число (Missing Number):** Найти пропущенное число в последовательности от `1` до `N` с помощью[...]
+12. **Проверить, является ли массив монотонным:** Определить, полностью ли массив возрастает или убывает.
+13. **Сортировка выбором (Selection Sort):** На каждом шаге находить минимальный элемент и помещать его в начало неот[...]
+14. **Сортировка вставками (Insertion Sort):** Вставлять каждый новый элемент в его правильное место среди уже отсор�[...]
+15. **Найти элемент, встречающийся один раз (Single Number):** Найти единственный элемент, который не имеет пары.
+16. **Найти сумму крайних элементов массива:** Сложить первый и последний элементы массива.
+17. **Заменить отрицательные числа положительными:** Преобразовать отрицательные значения в их модуль или з�[...]
+18. **Подсчитать количество положительных, отрицательных чисел и нулей:** За один проход определить количест[...]
+19. **Объединить два отсортированных массива (Merge Sorted Arrays):** Объединить два отсортированных массивов в один от[...]
+20. **Найти медиану массива:** После сортировки определить средний элемент (или среднее двух центральных эле�[...]
+21. **Найти место нарушения возрастающей последовательности:** Определить индекс первого элемента, который �[...]
+
+---
+
+# 3. Алгоритмы со строками (Strings)
+
+1. **Проверить, является ли строка палиндромом:** Определить, одинаково ли слово читается слева направо и спр[...]
+2. **Подсчитать количество гласных букв:** Посчитать количество гласных символов в строке.
+3. **Развернуть строку:** Вернуть строку в обратном порядке символов.
+4. **Подсчитать количество слов:** Определить количество слов в предложении, используя пробелы или метод `Split[...]
+5. **Проверить, являются ли два слова анаграммами:** Определить, состоят ли слова из одинаковых букв в одинак�[...]
+6. **Найти пересечение двух массивов:** Найти общие элементы двух различных массивов.
+7. **Найти наиболее часто встречающийся символ:** Определить символ с наибольшей частотой появления в строк�[...]
+8. **Найти самое длинное слово в предложении:** Вернуть первое слово с максимальной длиной.
+9. **Определить тип символа:** Проверить, является ли символ заглавной буквой, строчной буквой, цифрой или сп�[...]
+10. **Заменить все пробелы заданным символом:** Выполнить замену пробелов (например, на `-`) без использования �[...]
