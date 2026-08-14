@@ -580,3 +580,220 @@ GetDeviceInfo()
 - `override`
 - `List<T>`
 - `foreach`
+
+
+
+
+
+
+
+
+
+
+# Multi-Format Document Export & Printing System (Sənəd Çapı və İxrac Sistemi)
+
+## 1. Base Class: `Document`
+
+Bütün sənəd tipləri üçün əsas (Base) class yaradın.
+
+* **Property-lər & Fields:**
+  * `Title` (string) — `init` accessor ilə (obyekt yaradıldıqdan sonra dəyişdirilə bilməz).
+  * `Author` (string) — `readonly` field və ya `init` ilə dəstəklənsin.
+  * `RawContent` (string) — Sənədin mətni/məzmunu.
+  * `PageCount` (int) — Sənədin səhifə sayı (`private set`).
+
+* **Constructor:**
+  * Parameter-lər: `string title`, `string author`, `string rawContent`
+  * **Qaydalar:**
+    * `title`, `author` və `rawContent` boş və ya `null` ola bilməz.
+    * `PageCount` avtomatik olaraq mətndəki simvol sayına görə hesablanır:  
+      $$\text{PageCount} = \left\lceil \frac{\text{rawContent.Length}}{500} \right\rceil \quad (\text{minimum 1 səhifə})$$
+
+* **Overloaded Method-lar (`UpdateContent` - Compile-time Polymorphism):**
+  * `UpdateContent(string newContent)` — Məzmunu yeniləyir və `PageCount`-u yenidən hesablayır.
+  * `UpdateContent(string newContent, string appendNote)` — Məzmunun sonuna qeyd (`appendNote`) əlavə edərək yeniləyir və səhifə sayını hesablaıyr.
+
+* **Virtual Method-lar (Runtime Polymorphism):**
+  * **`CalculateExportSizeKB()` (virtual double)** — Sənədin fayl ölçüsünü hesablaıyr (Base klassda hər simvol = 1 bayt kimi götürülür):
+    $$\text{SizeKB} = \frac{\text{rawContent.Length}}{1024.0}$$
+  * **`Export()` (virtual string)** — Sənədi standart formatda ixrac edir.
+    * **Format:**
+      ```text
+      [DOCUMENT EXPORT]
+      Title: Annual Report
+      Author: John Doe
+      Pages: 3
+      Size: 1.45 KB
+      Content: "Company financial results..."
+      ```
+  * **`Print()` (virtual void)** — Sənədi konsola çap edir:
+    ```text
+    >>> Printing Document: 'Annual Report' by John Doe (3 pages)
+    ```
+
+---
+
+## 2. Derived Class 1: `PdfDocument`
+
+`Document` class-ından miras alan `PdfDocument` class-ı yaradın.
+
+* **Əlavə Property-lər:**
+  * `IsEncrypted` (bool) — Şifrələnib-şifrələnmədiyini bildirir.
+  * `DpiResolution` (int) — Çap keyfiyyəti (məsələn: `300` DPI).
+
+* **Constructor:**
+  * Parameter-lər: `title`, `author`, `rawContent`, `isEncrypted`, `dpiResolution`
+  * Base constructor-u `base(...)` ilə çağırılmalıdır.
+  * `dpiResolution` 72-dən kiçik ola bilməz (əks halda default `300` təyin edilsin).
+
+* **Method Overriding:**
+  * **`CalculateExportSizeKB()` (override):**
+    * PDF formatında metadata və resurslar olduğu üçün fayl ölçüsü böyüyür:
+      $$\text{BaseSizeKB} = \text{base.CalculateExportSizeKB()}$$
+      $$\text{PdfSizeKB} = (\text{BaseSizeKB} \times 1.5) + \left(\frac{\text{DpiResolution}}{100.0}\right)$$
+    * Əgər `IsEncrypted == true` olarsa, şifrələmə baytları üçün ölçüyə əlavə **10.0 KB** gəlinir.
+  * **`Export()` (override):**
+    * Base ixracat məlumatını genişləndirir, tipi `PDF DOCUMENT` edir və əlavə olaraq şifrələmə statusu ilə DPI göstərir:
+      ```text
+      [PDF DOCUMENT EXPORT]
+      Title: Project Architecture
+      Author: Alice
+      Pages: 2
+      Size: 14.20 KB
+      Security: Encrypted
+      Quality: 300 DPI
+      Content: "System diagram..."
+      ```
+  * **`Print()` (override):**
+    ```text
+    >>> Printing PDF [DPI: 300] [Encrypted: True]: 'Project Architecture' (Size: 14.20 KB)
+    ```
+
+---
+
+## 3. Derived Class 2: `HtmlDocument`
+
+`Document` class-ından miras alan `HtmlDocument` class-ı yaradın.
+
+* **Əlavə Property-lər:**
+  * `CssTheme` (string) — Stil teması (məsələn: "Dark", "Light", "Bootstrap").
+  * `IncludeHeaderFooter` (bool) — Başlıq və sonluğun olub-olmaması.
+
+* **Constructor:**
+  * Parameter-lər: `title`, `author`, `rawContent`, `cssTheme`, `includeHeaderFooter`
+  * Base constructor-u `base(...)` ilə çağırılmalıdır.
+
+* **Method Overriding:**
+  * **`CalculateExportSizeKB()` (override):**
+    * HTML teqləri və CSS strukturu ölçünü artırır:
+      $$\text{HtmlSizeKB} = \text{base.CalculateExportSizeKB()} + 2.5$$
+      *(Əgər `IncludeHeaderFooter == true` olarsa, əlavə **1.2 KB** gəlinir).*
+  * **`Export()` (override):**
+    * Məzmunu HTML teqləri daxilinə alaraq ixrac edir:
+      ```text
+      [HTML DOCUMENT EXPORT]
+      Title: Landing Page
+      Author: Web Team
+      Theme: Dark
+      Size: 4.20 KB
+      Rendered Code:
+      <html>
+        <head><title>Landing Page</title></head>
+        <body class="theme-dark">
+          "Welcome to our product..."
+        </body>
+      </html>
+      ```
+  * **`Print()` (override):**
+    ```text
+    >>> Rendering & Printing HTML Web Page [Theme: Dark]: 'Landing Page'
+    ```
+
+---
+
+## 4. Derived Class 3: `CompressedTextDocument`
+
+`Document` class-ından miras alan `CompressedTextDocument` class-ı yaradın.
+
+* **Əlavə Property-lər:**
+  * `CompressionRatioPercent` (double) — Sıxılma faizi (məsələn: `40.0` yəni %40 sıxılıb).
+
+* **Constructor:**
+  * Parameter-lər: `title`, `author`, `rawContent`, `compressionRatioPercent`
+  * `compressionRatioPercent` 1.0 ilə 90.0 arasında olmalıdır.
+
+* **Method Overriding:**
+  * **`CalculateExportSizeKB()` (override):**
+    * Fayl ölçüsü sıxılma dərəcəsinə görə kiçilir:
+      $$\text{CompressedSizeKB} = \text{base.CalculateExportSizeKB()} \times \left(1.0 - \frac{\text{CompressionRatioPercent}}{100.0}\right)$$
+  * **`Export()` (override):**
+    ```text
+    [ZIP TEXT DOCUMENT EXPORT]
+    Title: Archive Logs
+    Author: System
+    Compression: 40% Reduced
+    Size: 0.60 KB
+    Content: "Compressed binary data stream..."
+    ```
+  * **`Print()` (override):**
+    ```text
+    >>> Decompressing and Printing Archive: 'Archive Logs' (Saved 40% disk space)
+    ```
+
+---
+
+## 5. Document Manager (Polymorphic Array Processor): `DocumentPrinter`
+
+Ayrı bir `DocumentPrinter` class-ı yaradın. Bu class sənədləri idarə etmək üçün **`List<T>` YERİNƏ yalnız Sabit Ölçülü Massiv (`Document[]`)** istifadə etməlidir.
+
+* **Fields:**
+  * `private Document[] _documents` — Sənəd obyektlərini saxlamaq üçün massiv.
+  * `private int _count` — Massivə faktiki əlavə olunmuş sənədlərin sayı.
+
+* **Constructor:**
+  * `DocumentPrinter(int capacity)` — Massivin tutumunu (`capacity`) təyin edir və `_documents = new Document[capacity]` yaradır.
+
+* **Method-lar:**
+  * **`AddDocument(Document doc)`:**
+    * Massivdə yer olub-olmadığını yoxlayır (`_count < _documents.Length`).
+    * Yeri varsa `_documents[_count] = doc;` edib `_count`-u 1 artırır.
+    * Massiv doludursa konsola məlumat verir.
+  * **`PrintAll()` (POLYMORPHIC EXECUTION):**
+    * Sabit `for` və ya `foreach` dövrü vasitəsilə massivdəki bütün sənədlərin **`Print()`** metodunu çağırır.
+    * *Runtime zamanı massivin elementi `Document` tipində görünsə də, realda `PdfDocument`, `HtmlDocument` və ya `CompressedTextDocument`-a uyğun xüsusi `Print()` işləməlidir!*
+  * **`ExportAll()` (POLYMORPHIC EXECUTION):**
+    * Dövr ilə massivdəki hər bir sənədin **`Export()`** metodunu çağırır və ekrana yazdırır.
+  * **`GetTotalExportSizeKB()` (POLYMORPHIC CALCULATION):**
+    * Massivdəki bütün sənədlərin polimorfik **`CalculateExportSizeKB()`** metodlarını çağıraraq ümumi tutumu (KB) toplayıb qaytarır.
+
+---
+
+## 6. `Program.cs` (Polimorfizm və Massiv Test Ssenarisi)
+
+`Main` metodu daxilində aşağıdakı addımları icra edin:
+
+1. **Polimorfik Massiv Yaradılması (List yoxdur!):**
+   * 4 elementlik `Document[]` tipli massiv elan edin və daxilini fərqli törəmə klas obyektləri ilə doldurun:
+     ```csharp
+     Document[] docArray = new Document[4];
+     docArray[0] = new Document("Standard Doc", "Admin", "Simple text content...");
+     docArray[1] = new PdfDocument("Manual", "Tech Writer", "Detailed steps...", true, 300);
+     docArray[2] = new HtmlDocument("Home Page", "Developer", "Welcome page...", "Dark", true);
+     docArray[3] = new CompressedTextDocument("Logs", "Server", "System logs data...", 50.0);
+     ```
+
+2. **`DocumentPrinter` Manager Testi:**
+   * 5 tutumlu `DocumentPrinter` obyekti yaradın.
+   * Yuxarıda yaradılmış `docArray` massivindəki obyektləri dövr ilə `DocumentPrinter`-ə əlavə edin (`AddDocument`).
+
+3. **Polimorfik Çap və İxracat Testi:**
+   * `printer.PrintAll()` metodunu çağıraraq hər bir sənəd tipinin özünəxas çap cümlələrini görün.
+   * `printer.ExportAll()` metodunu çağıraraq fərqli formatlı mətn çıxarışlarını görün.
+
+4. **Polimorfik Hesablama Testi:**
+   * `printer.GetTotalExportSizeKB()` metodunu çağıraraq polimorfik ölçülərin düzgün toplanıb konsola yazdırıldığını görün.
+
+5. **Compile-time Polymorphism (Overloading) Testi:**
+   * Massivdəki 1-ci elementi (`Document` tipində olanı) götürün və `UpdateContent` overloaded metodlarını çağırın:
+     * `docArray[0].UpdateContent("New updated text content.");`
+     * `docArray[0].UpdateContent("New updated text content.", "Note: Approved by manager.");`
