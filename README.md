@@ -897,341 +897,83 @@ sayını qaytarır.
 8 - Qırmızı Düymə: İndeks və ya Serial ilə Generator/Tapşırıq Redaktəsi və Tezlik Hesablanması
 
 9 - Sistemi Dayandır
+```
 
-Вот точный перевод всей спецификации программирования «AeonGrid Ultra» на русский язык:
+# Software Assignment: "AeonGrid Ultra" — Multi-Zone Smart Energy Grid & Inframaterial Management Complex
 
-Задание по программированию: «AeonGrid Ultra» — Мультизональная умная энергосеть и комплекс управления инфраструктурными материалами
-В этом проекте вам предстоит с нуля разработать все структуры данных, исключения, сервисные службы и интерактивную симуляцию управления для корпоративного энергетического комплекса AeonGrid Ultra. Проект управляет подключаемыми к сети генераторами энергии, сетевыми трансформаторами (подстанциями), сертифицированными инженерами и сложными операциями передачи энергии, применяемыми в реальности.
-
-ОСНОВНЫЕ ПРАВИЛА И ОГРАНИЧЕНИЯ:
-
-Использование динамических коллекций (List<T>, ArrayList, Dictionary<K,V>, LinkedList и т. д.) СТРОГО ЗАПРЕЩЕНО!
-
-Все коллекции должны храниться внутри стандартных массивов (Array). При добавлении нового элемента в массив его размер должен динамически увеличиваться с использованием механизма ref и Array.Resize.
-
-В проекте НЕЛЬЗЯ использовать struct и record! Разрешено использовать только объекты class и interface.
-
-Все данные должны строго соответствовать принципам инкапсуляции (Encapsulation): поля (fields) должны быть скрыты, а для доступа к ним должны применяться соответствующие правила get/set.
-
-1. Custom Exceptions (Пользовательские исключения)
-Создайте следующие классы пользовательских исключений для обработки различных ошибочных сценариев в системе:
-
-NotFoundException: Вызывается, если искомый объект (генератор, инженер, подстанция или задача) по его ID/серийному номеру не найден в массиве.
-
-NotAvailableException: Вызывается, если генератор находится на техническом обслуживании, инженер занят другой задачей или в выбранной зоне ведутся ремонтные работы.
-
-GridOverloadException: Вызывается, если вырабатываемое напряжение/мощность превышает максимальную пропускную способность линии или если частота сети выходит за критические пределы.
-
-InsufficientClearanceException: Вызывается, если уровень допуска безопасности инженера (Clearance Level) не соответствует рейтингу безопасности регулируемого генератора.
-
-2. Enum (Перечисления)
-GridZone: ZoneNorth, ZoneSouth, ZoneEast, ZoneWest, ZoneCentral (Зоны деятельности энергосети).
-
-TransferStatus: Scheduled, Transmitting, Stabilized, Interrupted, Terminated (По умолчанию: Scheduled).
-
-FrequencyUnit: Hertz, KiloHertz, MegaHertz.
-
-MaintenanceState: Operational, UnderInspection, Decommissioned.
-
-3. Два разных класса и явные / неявные преобразования операторов (Implicit / Explicit)
-Создайте два различных класса для управления электрическим напряжением (разностью потенциалов) в сети:
-
-VoltVoltage (Class)
-Magnitude: double свойство (Не может быть отрицательным. Если отрицательное — вызывается GridOverloadException).
-
-Constructor: Принимает параметр Magnitude.
-
-KiloVoltVoltage (Class)
-Magnitude: double свойство (Не может быть отрицательным. Если отрицательное — вызывается GridOverloadException).
-
-Constructor: Принимает параметр Magnitude.
-
-Операторы:
-Для класса KiloVoltVoltage напишите оператор implicit (неявного) преобразования к типу VoltVoltage (1 кВ=1000 В).
-
-Для класса VoltVoltage напишите оператор explicit (явного) преобразования к типу KiloVoltVoltage (1 В=0.001 кВ).
-
-4. Абстрактный класс: PowerGenerator (Генератор энергии)
-Id: int (private set, автоматически увеличивается на 1 только в ctor).
-
-SerialNumber: string (Не может быть пустым/null, должны применяться Trim() и ToUpper()).
-
-CommissionDate: DateTime (Не может быть датой из будущего, если дата из будущего — вызывается ArgumentException).
-
-OutputVoltage: Тип класса VoltVoltage.
-
-TargetZone: Тип enum GridZone.
-
-State: Тип enum MaintenanceState (По умолчанию: Operational).
-
-IsOnline: bool (По умолчанию: false).
-
-Поля Readonly / Init / Const:
-
-public const string GRID_CODE = "AEON-ULTRA-GRID";
-
-public readonly DateTime RegisteredAt; (присваивается значение в ctor)
-
-public string HardwareRevision { get; init; }
-
-Абстрактные методы:
-
-double CalculateCarbonOffset(TimeSpan runTime) — Рассчитывает количество сэкономленного/сокращенного углерода (в кг) в зависимости от времени работы.
-
-double CalculateEfficiencyIndex() — Возвращает общий коэффициент полезного действия (КПД) генератора.
-
-ToString(): Должен быть переопределен (override) и возвращать серийный номер генератора, зону, техническое состояние и значение напряжения в читаемом текстовом формате.
-
-Требование: Нельзя создать объект PowerGenerator без передачи SerialNumber, OutputVoltage и CommissionDate (Используйте перегрузку конструкторов — Constructor Overloading).
-
-Дочерние классы (Не могут быть унаследованы — должны быть sealed):
-SolarGenerator:
-
-PanelSurfaceArea: double (Площадь поверхности панелей в кв. метрах, не может быть отрицательной или равной 0).
-
-EfficiencyPercentage: double (От 0 до 100).
-
-CalculateCarbonOffset(runTime): (15.5×runTime.TotalHours)+(PanelSurfaceArea×0.8).
-
-CalculateEfficiencyIndex(): (PanelSurfaceArea×EfficiencyPercentage)/100.0.
-
-WindTurbineGenerator:
-
-RotorDiameter: double (Диаметр ротора в метрах, не может быть отрицательным или равным 0).
-
-AverageWindSpeed: double (Средняя скорость ветра в м/с).
-
-CalculateCarbonOffset(runTime): (22.0×runTime.TotalHours)+(RotorDiameter×1.5).
-
-CalculateEfficiencyIndex(): (RotorDiameter×AverageWindSpeed)×0.12.
-
-HydroElectricGenerator:
-
-WaterFlowRate: double (Расход воды в м³/с).
-
-DamHeight: double (Высота плотины в метрах).
-
-CalculateCarbonOffset(runTime): (35.0×runTime.TotalHours)+(DamHeight×2.1).
-
-CalculateEfficiencyIndex(): (WaterFlowRate×DamHeight)×0.08.
-
-5. GridSubstation (Класс сетевой подстанции)
-Id: Статический автоинкрементный int.
-
-SubstationCode: string (Формат: "SUB-XXX").
-
-Zone: GridZone.
-
-MaxCapacityKiloVolts: double.
-
-ConnectedGenerators: PowerGenerator[] (Приватный массив, только подключенные к этой подстанции генераторы).
-
-Методы:
-
-AddGeneratorToSubstation(PowerGenerator generator): Добавляет генератор в массив (с использованием ref). Если максимальная емкость подстанции превышена, вызывается GridOverloadException.
-
-6. Классы GridEngineer и PowerTransferTask
-GridEngineer
-Id: Статический автоинкрементный int.
-
-Name, Surname: string (С помощью строковых методов первая буква обязательно должна быть заглавной).
-
-HireDate: DateTime.
-
-BaseSalary: double.
-
-ClearanceZone: GridZone.
-
-ClearanceLevel: int (Уровень допуска безопасности от 1 до 5).
-
-IsDispatched: bool (По умолчанию: false).
-
-Static Method:
-
-GetCertifiedSeniorCount(GridEngineer[] engineers, DateTime maxHireDate, double minSalary, GridZone requiredZone, int minClearance)
-
-Возвращает количество инженеров, дата приема на работу которых старше maxHireDate (опытные), зона допуска соответствует requiredZone, уровень допуска больше или равен minClearance И зарплата больше minSalary.
-
-PowerTransferTask
-Id: Статический автоинкрементный int.
-
-GeneratorId: int.
-
-EngineerId: int.
-
-SubstationId: int.
-
-Status: TransferStatus (По умолчанию: Scheduled).
-
-StartTime: DateTime (По умолчанию: DateTime.Now).
-
-PlannedDuration: TimeSpan (Запланированное время выполнения процесса передачи).
-
-Методы:
-
-UpdateStatus(TransferStatus newStatus): Если текущий статус Stabilized, Interrupted или Terminated, изменить статус нельзя и должно быть вызвано исключение GridOverloadException.
-
-7. Интерфейсы и Сервисы
-IAeonGridManager (Interface)
-AddGenerator(PowerGenerator generator): Добавляет новый генератор в массив (массив расширяется через ref).
-
-AddEngineer(GridEngineer engineer): Добавляет нового инженера в массив (массив расширяется через ref).
-
-AddSubstation(GridSubstation substation): Добавляет новую подстанцию в массив (массив расширяется через ref).
-
-ScheduleTransfer(int generatorId, int engineerId, int substationId, TimeSpan duration):
-
-Если генератор, инженер или подстанция не найдены, вызывается NotFoundException.
-
-Если инженер IsDispatched == true или генератор IsOnline == true, вызывается NotAvailableException.
-
-Если значение State генератора отличается от Operational, вызывается NotAvailableException.
-
-Если зона допуска инженера (ClearanceZone) не совпадает с целевой зоной генератора (TargetZone), вызывается GridOverloadException.
-
-При успехе устанавливает IsDispatched инженера в true и IsOnline генератора в true.
-
-CompleteTransfer(int taskId): Переводит задачу в статус Stabilized, меняет IsOnline генератора на false и IsDispatched инженера на false.
-
-GetGeneratorsByZone(GridZone zone): Возвращает все генераторы в заданной зоне в виде массива PowerGenerator[].
-
-AeonGridManager Class
-Реализует интерфейс IAeonGridManager.
-
-Содержит внутри себя приватные массивы: PowerGenerator[], GridEngineer[], GridSubstation[] и PowerTransferTask[].
-
-Индексатор 1: this[int index] — Позволяет обращаться непосредственно к массиву PowerTransferTask по индексу для получение (get) и установки (set) задачи передачи.
-
-Индексатор 2 (Перегруженный индексатор): this[string serialNumber] — Находит и возвращает объект PowerGenerator по серийному номеру (get).
-
-8. Методы расширения (Extension Methods)
-Внутри статического класса GridExtensions напишите следующие методы расширения:
-
-GetExpectedCompletionTime(this PowerTransferTask task):
-
-Возвращает ожидаемое время завершения передачи (task.StartTime + task.PlannedDuration).
-
-ConvertFrequency(double baseHertz, FrequencyUnit targetUnit):
-
-Конвертирует внутреннее значение частоты сети (Гц) в единицу измерения, переданную в качестве параметра (Hertz, KiloHertz, MegaHertz).
-(Формулы: 1 кГц=1000 Гц, 1 МГц=1000000 Гц).
-
-FormatSerialNumber(this string rawSerial):
-
-Очищает произвольный текст серийного номера, удаляет лишние пробелы и добавляет префикс "AGU-" (Например: "  sol-123 " -> "AGU-SOL-123").
-
-9. Интерактивное консольное меню (Program.cs)
-Внутри Program.cs организуйте развернутое и функциональное меню, управляющее всей энергосистемой и основанное исключительно на логике switch-case и циклов (while/do-while):
-
-Plaintext
-================ СИСТЕМА УПРАВЛЕНИЯ ЭНЕРГОСЕТЬЮ AEONGRID ULTRA ================
-0 - Показать общее состояние сети, подстанции и статистику
-1 - Добавить новый генератор энергии (Solar / Wind / Hydro)
-2 - Зарегистрировать нового инженера сети
-3 - Создать новую сетевую подстанцию (GridSubstation)
-4 - Запланировать задачу передачи энергии (PowerTransferTask)
-5 - Завершить задачу передачи (Complete Transfer)
-6 - Отфильтровать сертифицированных инженеров (через статический метод Engineer)
-7 - Проверить преобразование напряжения (Implicit/Explicit Volt <-> KiloVolt)
-8 - Красная кнопка: Редактирование генератора/задачи по индексу или серийному номеру и расчет частоты
-9 - Остановить систему
-md formatinda yaz
-
-"""
-
-with open("AeonGrid_Ultra_Task.md", "w", encoding="utf-8") as f:
-f.write(md_content)
-
-print("MD file generated successfully.")
-
-
-```text?code_stdout&code_event_index=1
-MD file generated successfully.
-
-Ваш файл Markdown (.md) с техническим заданием готов:
-
-MD icon
-AeonGrid_Ultra_Task
- MD 
-Open
-Ниже приведено полное содержимое спецификации в формате Markdown:
-
-Markdown
-# Программирование: «AeonGrid Ultra» — Мультизональная умная энергосеть и комплекс управления инфраструктурными материалами
-
-В этом проекте вам предстоит с нуля разработать все структуры данных, исключения, сервисные службы и интерактивную симуляцию управления для корпоративного энергетического комплекса **AeonGrid Ultra**. Проект управляет подключаемыми к сети генераторами энергии, сетевыми трансформаторами (подстанциями), сертифицированными инженерами и сложными операциями передачи энергии, применяемыми в реальности.
+В этом проекте вам предстоит с нуля разработать структуры данных, обрабатывать ошибки, создавать сервисы и реализовать интерактивную симуляцию управления корпоративным энергетическим комплексом **AeonGrid Ultra**. Проект управляет подключенными к сети генераторами энергии, сетевыми трансформаторными подстанциями, сертифицированными инженерами и сложными операциями передачи энергии.
 
 > **ОСНОВНЫЕ ПРАВИЛА И ОГРАНИЧЕНИЯ:**
-> 1. **Использование динамических коллекций (`List<T>`, `ArrayList`, `Dictionary<K,V>`, `LinkedList` и т. д.) СТРОГО ЗАПРЕЩЕНО!**
-> 2. Все коллекции должны храниться внутри стандартных массивов (**Array**). При добавлении нового элемента в массив его размер должен динамически увеличиваться с использованием механизма `ref` и `Array.Resize`.
-> 3. В проекте **НЕЛЬЗЯ использовать `struct` и `record`!** Разрешено использовать только объекты `class` и `interface`.
-> 4. Все данные должны строго соответствовать принципам инкапсуляции (**Encapsulation**): поля (fields) должны быть скрыты, а для доступа к ним должны применяться соответствующие правила get/set.
+> 1. **Использование динамических коллекций (`List<T>`, `ArrayList`, `Dictionary<K,V>`, `LinkedList` и т.д.) КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО!**
+> 2. Все коллекции должны храниться внутри **стандартных массивов (Array)**. При добавлении нового элемента в массив его размер должен динамически увеличиваться с использованием механизмов `ref` и `Array.Resize`.
+> 3. В проекте **НЕЛЬЗЯ использовать `struct` и `record`!** Разрешено применять только классы (`class`) и интерфейсы (`interface`).
+> 4. Все данные должны строго соответствовать принципам **инкапсуляции**: поля (fields) скрыты, установлены правильные get/set ограничения.
 
 ---
 
-## 1. Custom Exceptions (Пользовательские исключения)
-Создайте следующие классы пользовательских исключений для обработки различных ошибочных сценариев в системе:
+## 1. Пользовательские Исключения (Custom Exceptions)
+Для обработки различных ошибочных сценариев создайте следующие пользовательские классы исключений:
 
-* **`NotFoundException`**: Вызывается, если искомый объект (генератор, инженер, подстанция или задача) по его ID/серийному номеру не найден в массиве.
-* **`NotAvailableException`**: Вызывается, если генератор находится на техническом обслуживании, инженер занят другой задачей или в выбранной зоне ведутся ремонтные работы.
-* **`GridOverloadException`**: Вызывается, если вырабатываемое напряжение/мощность превышает максимальную пропускную способность линии или если частота сети выходит за критические пределы.
-* **`InsufficientClearanceException`**: Вызывается, если уровень допуска безопасности инженера (Clearance Level) не соответствует рейтингу безопасности регулируемого генератора.
+* **`NotFoundException`**: Вызывается, если искомый генератор, инженер, подстанция или задача по ID/серийному номеру не найдены в массиве.
+* **`NotAvailableException`**: Вызывается, если генератор находится на техобслуживании, инженер уже занят другой задачей или в выбранной зоне проводятся ремонтные работы.
+* **`GridOverloadException`**: Вызывается, если вырабатываемое напряжение/мощность превышает максимальную пропускную способность линии или частота сети выходит за критические пределы.
+* **`InsufficientClearanceException`**: Вызывается, если уровень допуска безопасности инженера (Clearance Level) не соответствует рейтингу безопасности обслуживаемого генератора.
 
 ---
 
-## 2. Enum (Перечисления)
-1. **`GridZone`**: `ZoneNorth`, `ZoneSouth`, `ZoneEast`, `ZoneWest`, `ZoneCentral` (Зоны деятельности энергосети).
+## 2. Перечисления (Enums)
+1. **`GridZone`**: `ZoneNorth`, `ZoneSouth`, `ZoneEast`, `ZoneWest`, `ZoneCentral` (Зоны сети).
 2. **`TransferStatus`**: `Scheduled`, `Transmitting`, `Stabilized`, `Interrupted`, `Terminated` (По умолчанию: `Scheduled`).
 3. **`FrequencyUnit`**: `Hertz`, `KiloHertz`, `MegaHertz`.
 4. **`MaintenanceState`**: `Operational`, `UnderInspection`, `Decommissioned`.
 
 ---
 
-## 3. Два разных класса и явные / неявные преобразования операторов (Implicit / Explicit)
-Создайте два различных класса для управления электрическим напряжением (разностью потенциалов) в сети:
+## 3. Два класса и Implicit / Explicit Преобразования Операторов
+Для управления электрическим напряжением (потенциалом) в сети создайте два разных класса:
 
 ### `VoltVoltage` (Class)
 * **`Magnitude`**: `double` свойство (Не может быть отрицательным. Если отрицательное — вызывается `GridOverloadException`).
-* **Constructor**: Принимает параметр `Magnitude`.
+* **Конструктор**: Принимает параметр `Magnitude`.
 
 ### `KiloVoltVoltage` (Class)
 * **`Magnitude`**: `double` свойство (Не может быть отрицательным. Если отрицательное — вызывается `GridOverloadException`).
-* **Constructor**: Принимает параметр `Magnitude`.
+* **Конструктор**: Принимает параметр `Magnitude`.
 
 ### Операторы:
-* Для класса `KiloVoltVoltage` напишите оператор **`implicit`** (неявного) преобразования к типу `VoltVoltage` ($1\text{ кВ} = 1000\text{ В}$).
-* Для класса `VoltVoltage` напишите оператор **`explicit`** (явного) преобразования к типу `KiloVoltVoltage` ($1\text{ В} = 0.001\text{ кВ}$).
+* Напишите оператор **`implicit`** (неявного) преобразования для класса `KiloVoltVoltage` в тип `VoltVoltage` ($1\text{ кВ} = 1000\text{ В}$).
+* Напишите оператор **`explicit`** (явного) преобразования для класса `VoltVoltage` в тип `KiloVoltVoltage` ($1\text{ В} = 0.001\text{ кВ}$).
 
 ---
 
-## 4. Абстрактный класс: `PowerGenerator` (Генератор энергии)
+## 4. Абстрактный Класс: `PowerGenerator` (Генератор Энергии)
 * **`Id`**: `int` (`private set`, автоматически увеличивается на 1 только в `ctor`).
-* **`SerialNumber`**: `string` (Не может быть пустым/null, должны применяться `Trim()` и `ToUpper()`).
-* **`CommissionDate`**: `DateTime` (Не может быть датой из будущего, если дата из будущего — вызывается `ArgumentException`).
-* **`OutputVoltage`**: Тип класса `VoltVoltage`.
-* **`TargetZone`**: Тип enum `GridZone`.
-* **`State`**: Тип enum `MaintenanceState` (По умолчанию: `Operational`).
+* **`SerialNumber`**: `string` (Не может быть пустым/null, приводится через `Trim()` и `ToUpper()`).
+* **`CommissionDate`**: `DateTime` (Не может быть датой из будущего, иначе выбрасывается `ArgumentException`).
+* **`OutputVoltage`**: Типа `VoltVoltage`.
+* **`TargetZone`**: Типа `GridZone`.
+* **`State`**: Типа `MaintenanceState` (По умолчанию: `Operational`).
 * **`IsOnline`**: `bool` (По умолчанию: `false`).
 * **Поля `Readonly / Init / Const`**:
   * `public const string GRID_CODE = "AEON-ULTRA-GRID"`;
-  * `public readonly DateTime RegisteredAt`; (присваивается значение в ctor)
+  * `public readonly DateTime RegisteredAt`; (присваивается в ctor)
   * `public string HardwareRevision { get; init; }`
-* **Абстрактные методы**:
-  * `double CalculateCarbonOffset(TimeSpan runTime)` — Рассчитывает количество сэкономленного/сокращенного углерода (в кг) в зависимости от времени работы.
+* **Абстрактные Методы**:
+  * `double CalculateCarbonOffset(TimeSpan runTime)` — Вычисляет количество сэкономленного/сокращенного углеродного следа (в кг) за время работы.
   * `double CalculateEfficiencyIndex()` — Возвращает общий коэффициент полезного действия (КПД) генератора.
-* **ToString()**: Должен быть переопределен (`override`) и возвращать серийный номер генератора, зону, техническое состояние и значение напряжения в читаемом текстовом формате.
-* *Требование:* Нельзя создать объект `PowerGenerator` без передачи `SerialNumber`, `OutputVoltage` и `CommissionDate` (Используйте перегрузку конструкторов — Constructor Overloading).
+* **ToString()**: Переопределить (`override`), должен возвращать серийный номер, зону, техническое состояние и напряжение в читаемом текстовом формате.
+* *Требование:* Создание объекта `PowerGenerator` без передачи `SerialNumber`, `OutputVoltage` и `CommissionDate` должно быть невозможно (используйте перегрузку конструкторов).
 
-### Дочерние классы (Не могут быть унаследованы — должны быть `sealed`):
+### Дочерние Классы (Запрещено наследовать — должны быть `sealed`):
 
 1. **`SolarGenerator`**:
-   * **`PanelSurfaceArea`**: `double` (Площадь поверхности панелей в кв. метрах, не может быть отрицательной или равной 0).
+   * **`PanelSurfaceArea`**: `double` (Площадь панелей в кв. метрах, не может быть $\le 0$).
    * **`EfficiencyPercentage`**: `double` (От 0 до 100).
    * **`CalculateCarbonOffset(runTime)`**: $(15.5 \times \text{runTime.TotalHours}) + (\text{PanelSurfaceArea} \times 0.8)$.
    * **`CalculateEfficiencyIndex()`**: $(\text{PanelSurfaceArea} \times \text{EfficiencyPercentage}) / 100.0$.
 
 2. **`WindTurbineGenerator`**:
-   * **`RotorDiameter`**: `double` (Диаметр ротора в метрах, не может быть отрицательным или равным 0).
+   * **`RotorDiameter`**: `double` (Диаметр ротора в метрах, не может быть $\le 0$).
    * **`AverageWindSpeed`**: `double` (Средняя скорость ветра в м/с).
    * **`CalculateCarbonOffset(runTime)`**: $(22.0 \times \text{runTime.TotalHours}) + (\text{RotorDiameter} \times 1.5)$.
    * **`CalculateEfficiencyIndex()`**: $(\text{RotorDiameter} \times \text{AverageWindSpeed}) \times 0.12$.
@@ -1244,66 +986,96 @@ Markdown
 
 ---
 
-## 5. `GridSubstation` (Класс сетевой подстанции)
-* **`Id`**: Статический автоинкрементный `int`.
+## 5. `GridSubstation` (Подстанция Электросети)
+* **`Id`**: Статический автоинкремент `int`.
 * **`SubstationCode`**: `string` (Формат: "SUB-XXX").
 * **`Zone`**: `GridZone`.
 * **`MaxCapacityKiloVolts`**: `double`.
-* **`ConnectedGenerators`**: `PowerGenerator[]` (Приватный массив, только подключенные к этой подстанции генераторы).
+* **`ConnectedGenerators`**: `PowerGenerator[]` (Приватный массив генераторов, подключенных к этой подстанции).
 * **Методы**:
-  * `AddGeneratorToSubstation(PowerGenerator generator)`: Добавляет генератор в массив (с использованием `ref`). Если максимальная емкость подстанции превышена, вызывается `GridOverloadException`.
+  * `AddGeneratorToSubstation(PowerGenerator generator)`: Добавляет генератор в массив (с использованием `ref`). Если превышается максимальная мощность подстанции, выбрасывается `GridOverloadException`.
 
 ---
 
 ## 6. Классы `GridEngineer` и `PowerTransferTask`
 
 ### `GridEngineer`
-* **`Id`**: Статический автоинкрементный `int`.
-* **`Name`**, **`Surname`**: `string` (С помощью строковых методов первая буква обязательно должна быть заглавной).
+* **`Id`**: Статический автоинкремент `int`.
+* **`Name`**, **`Surname`**: `string` (С помощью методов работы со строками первая буква должна быть заглавной, остальные — строчными).
 * **`HireDate`**: `DateTime`.
 * **`BaseSalary`**: `double`.
 * **`ClearanceZone`**: `GridZone`.
-* **`ClearanceLevel`**: `int` (Уровень допуска безопасности от 1 до 5).
+* **`ClearanceLevel`**: `int` (Уровень допуска от 1 до 5).
 * **`IsDispatched`**: `bool` (По умолчанию: `false`).
-* **Static Method**: 
+* **Статический Метод**: 
   * `GetCertifiedSeniorCount(GridEngineer[] engineers, DateTime maxHireDate, double minSalary, GridZone requiredZone, int minClearance)`
-  * Возвращает количество инженеров, дата приема на работу которых старше `maxHireDate` (опытные), зона допуска соответствует `requiredZone`, уровень допуска больше или равен `minClearance` И зарплата больше `minSalary`.
+  * Возвращает количество инженеров, дата найма которых раньше `maxHireDate` (опытные), зона допуска соответствует `requiredZone`, уровень допуска $\ge$ `minClearance`, а зарплата строго больше `minSalary`.
 
 ### `PowerTransferTask`
-* **`Id`**: Статический автоинкрементный `int`.
+* **`Id`**: Статический автоинкремент `int`.
 * **`GeneratorId`**: `int`.
 * **`EngineerId`**: `int`.
 * **`SubstationId`**: `int`.
 * **`Status`**: `TransferStatus` (По умолчанию: `Scheduled`).
 * **`StartTime`**: `DateTime` (По умолчанию: `DateTime.Now`).
-* **`PlannedDuration`**: `TimeSpan` (Запланированное время выполнения процесса передачи).
+* **`PlannedDuration`**: `TimeSpan` (Запланированное время передачи).
 * **Методы**:
-  * `UpdateStatus(TransferStatus newStatus)`: Если текущий статус `Stabilized`, `Interrupted` или `Terminated`, изменить статус нельзя и должно быть вызвано исключение `GridOverloadException`.
+  * `UpdateStatus(TransferStatus newStatus)`: Если текущий статус равен `Stabilized`, `Interrupted` или `Terminated`, изменить статус нельзя — выбрасывается `GridOverloadException`.
 
 ---
 
 ## 7. Интерфейсы и Сервисы
 
 ### `IAeonGridManager` (Interface)
-* `AddGenerator(PowerGenerator generator)`: Добавляет новый генератор в массив (массив расширяется через `ref`).
-* `AddEngineer(GridEngineer engineer)`: Добавляет нового инженера в массив (массив расширяется через `ref`).
-* `AddSubstation(GridSubstation substation)`: Добавляет новую подстанцию в массив (массив расширяется через `ref`).
+* `AddGenerator(PowerGenerator generator)`: Добавляет генератор в массив (массив расширяется через `ref`).
+* `AddEngineer(GridEngineer engineer)`: Добавляет инженера в массив (массив расширяется через `ref`).
+* `AddSubstation(GridSubstation substation)`: Добавляет подстанцию в массив (массив расширяется через `ref`).
 * `ScheduleTransfer(int generatorId, int engineerId, int substationId, TimeSpan duration)`:
-  * Если генератор, инженер или подстанция не найдены, вызывается `NotFoundException`.
-  * Если инженер `IsDispatched == true` или генератор `IsOnline == true`, вызывается `NotAvailableException`.
-  * Если значение `State` генератора отличается от `Operational`, вызывается `NotAvailableException`.
-  * Если зона допуска инженера (`ClearanceZone`) не совпадает с целевой зоной генератора (`TargetZone`), вызывается `GridOverloadException`.
-  * При успехе устанавливает `IsDispatched` инженера в `true` и `IsOnline` генератора в `true`.
-* `CompleteTransfer(int taskId)`: Переводит задачу в статус `Stabilized`, меняет `IsOnline` генератора на `false` и `IsDispatched` инженера на `false`.
-* `GetGeneratorsByZone(GridZone zone)`: Возвращает все генераторы в заданной зоне в виде массива `PowerGenerator[]`.
+  * Если генератор, инженер или подстанция не найдены, выбрасывается `NotFoundException`.
+  * Если инженер `IsDispatched == true` или генератор `IsOnline == true`, выбрасывается `NotAvailableException`.
+  * Если `State` генератора не равен `Operational`, выбрасывается `NotAvailableException`.
+  * Если `ClearanceZone` инженера не совпадает с `TargetZone` генератора, выбрасывается `GridOverloadException`.
+  * При успешном выполнении устанавливает `IsDispatched` инженера в `true` и `IsOnline` генератора в `true`.
+* `CompleteTransfer(int taskId)`: Переводит статус задачи в `Stabilized`, меняет `IsOnline` генератора и `IsDispatched` инженера обратно в `false`.
+* `GetGeneratorsByZone(GridZone zone)`: Возвращает массив `PowerGenerator[]` со всеми генераторами в указанной зоне.
 
 ### `AeonGridManager` Class
 * Реализует интерфейс `IAeonGridManager`.
-* Содержит внутри себя **приватные массивы**: `PowerGenerator[]`, `GridEngineer[]`, `GridSubstation[]` и `PowerTransferTask[]`.
-* **Индексатор 1**: `this[int index]` — Позволяет обращаться непосредственно к массиву `PowerTransferTask` по индексу для получение (`get`) и установки (`set`) задачи передачи.
-* **Индексатор 2 (Перегруженный индексатор)**: `this[string serialNumber]` — Находит и возвращает объект `PowerGenerator` по серийному номеру (`get`).
+* Содержит внутренние **приватные массивы**: `PowerGenerator[]`, `GridEngineer[]`, `GridSubstation[]` и `PowerTransferTask[]`.
+* **Индексатор 1**: `this[int index]` — Доступ к массиву `PowerTransferTask` по индексу для получения (`get`) и изменения (`set`) задачи.
+* **Индексатор 2 (Перегруженный индексатор)**: `this[string serialNumber]` — Поиск и получение (`get`) объекта `PowerGenerator` по его серийному номеру.
 
 ---
+
+## 8. Методы Расширения (Extension Methods)
+В статическом классе `GridExtensions` напишите следующие методы расширения:
+
+1. **`GetExpectedCompletionTime(this PowerTransferTask task)`**:
+   * Возвращает ожидаемое время завершения передачи (`task.StartTime + task.PlannedDuration`).
+2. **`ConvertFrequency(double baseHertz, FrequencyUnit targetUnit)`**:
+   * Конвертирует базовую частоту сети (Гц) в указанную единицу (`Hertz`, `KiloHertz`, `MegaHertz`).
+   *(Формулы: $1\text{ кГц} = 1000\text{ Гц}$, $1\text{ МГц} = 1000000\text{ Гц}$)*.
+3. **`FormatSerialNumber(this string rawSerial)`**:
+   * Очищает произвольный введенный серийный номер от лишних пробелов и добавляет префикс "AGU-" (Пример: `"  sol-123 "` -> `"AGU-SOL-123"`).
+
+---
+
+## 9. Интерактивное Консольное Меню (Program.cs)
+
+В `Program.cs` реализуйте интерактивное консольное меню, управляющее всей системой, используя исключительно конструкции `switch-case` и циклы (`while`/`do-while`):
+
+```text
+================ СИСТЕМА УПРАВЛЕНИЯ СЕТЬЮ AEONGRID ULTRA ================
+0 - Показать общий статус сети, подстанции и статистику
+1 - Добавить новый генератор энергии (Solar / Wind / Hydro)
+2 - Зарегистрировать нового инженера сети
+3 - Создать новую сетевую подстанцию (GridSubstation)
+4 - Запланировать задачу передачи энергии (PowerTransferTask)
+5 - Завершить задачу передачи (Complete Transfer)
+6 - Фильтрация сертифицированных инженеров (через static метод)
+7 - Проверить конвертацию напряжения (Implicit/Explicit Volt <-> KiloVolt)
+8 - Красная кнопка: Редактирование генератора/задачи по индексу или серийному номеру и расчет частоты
+9 - Остановить систему
 
 ## 8. Методы расширения (Extension Methods)
 Внутри статического класса `GridExtensions` напишите следующие методы расширения:
