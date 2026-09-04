@@ -241,6 +241,8 @@ INSERT INTO Biletlər (SessionID, CustomerID, SeatNumber, Price, PurchaseDate) V
 (9, 2, N'F12', 16.00, '2026-09-04 18:00:00'),
 (10, 8, N'B2', 10.00, '2026-09-04 19:10:00');
 
+---
+
 ## 📝 50 Sorğu Tapşırığı (SQL Query Tasks)
 
 ### Bölmə 1: Əsas SQL Komandaları, Filtrləmə və Sıralama (1–10)
