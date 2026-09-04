@@ -153,7 +153,7 @@ INSERT INTO Filmlər (Title, ReleaseYear, Rating, Duration, Status) VALUES
 (N'The Prestige', 2006, 8.5, 130, N'Active'),
 (N'Avengers: Endgame', 2019, 8.4, 181, N'Active');
 
--- 5. MovieDetails (FilmTəfərrüatları) - (1:1 Relationship, MovieID = 1 to 10)
+
 INSERT INTO FilmTəfərrüatları (MovieID, Budget, Country, Language, Description) VALUES 
 (1, 160000000.00, N'USA', N'English', N'A thief who steals corporate secrets through the use of dream-sharing technology.'),
 (2, 165000000.00, N'USA', N'English', N'A team of explorers travel through a wormhole in space in an attempt to ensure humanity survival.'),
@@ -166,7 +166,7 @@ INSERT INTO FilmTəfərrüatları (MovieID, Budget, Country, Language, Descripti
 (9, 40000000.00, N'USA', N'English', N'After a tragic accident, two stage magicians in 1890s London engage in a battle to create the ultimate illusion.'),
 (10, 356000000.00, N'USA', N'English', N'After the devastating events of Infinity War, the Avengers assemble once more to reverse Thanos actions.');
 
--- 6. MovieGenres (FilmJanrları) - (N:M Junction Table)
+
 INSERT INTO FilmJanrları (MovieID, GenreID) VALUES 
 (1, 1), (1, 4), (1, 5),
 (2, 4), (2, 2), (2, 7),
@@ -179,7 +179,6 @@ INSERT INTO FilmJanrları (MovieID, GenreID) VALUES
 (9, 2), (9, 5),
 (10, 1), (10, 4), (10, 7);
 
--- 7. MovieActors (FilmAktyorları) - (N:M Junction Table)
 INSERT INTO FilmAktyorları (MovieID, ActorID, RoleName) VALUES 
 (1, 1, N'Cobb'),
 (1, 7, N'Eames'),
@@ -199,7 +198,7 @@ INSERT INTO FilmAktyorları (MovieID, ActorID, RoleName) VALUES
 (10, 10, N'Tony Stark / Iron Man'),
 (10, 9, N'Natasha Romanoff');
 
--- 8. Sessions (Seanslar)
+
 INSERT INTO Seanslar (MovieID, HallID, StartTime, Status) VALUES 
 (1, 1, '2026-09-05 15:00:00', N'Active'),
 (1, 2, '2026-09-05 18:00:00', N'Active'),
@@ -212,7 +211,7 @@ INSERT INTO Seanslar (MovieID, HallID, StartTime, Status) VALUES
 (10, 4, '2026-09-08 18:00:00', N'Active'),
 (9, 2, '2026-09-08 21:30:00', N'Active');
 
--- 9. Customers (Müştərilər)
+
 INSERT INTO Müştərilər (FirstName, LastName, Email, Phone, City) VALUES 
 (N'John', N'Doe', N'john.doe@gmail.com', N'+15550123', N'New York'),
 (N'Jane', N'Smith', N'jane.smith@gmail.com', N'+15550987', N'New York'),
@@ -223,7 +222,7 @@ INSERT INTO Müştərilər (FirstName, LastName, Email, Phone, City) VALUES
 (N'David', N'Taylor', NULL, NULL, N'Los Angeles'),
 (N'Sarah', N'Anderson', N'sarah.a@gmail.com', N'+15550111', N'Chicago');
 
--- 10. CustomerCards (MüştəriKartları) - (1:1 Relationship)
+
 INSERT INTO MüştəriKartları (CustomerID, CardNumber, BonusPoints, Status) VALUES 
 (1, N'CARD1001', 120, N'Active'),
 (2, N'CARD1002', 45, N'Active'),
@@ -231,7 +230,7 @@ INSERT INTO MüştəriKartları (CustomerID, CardNumber, BonusPoints, Status) VA
 (5, N'CARD1004', 210, N'Active'),
 (6, N'CARD1005', 85, N'Active');
 
--- 11. Tickets (Biletlər)
+
 INSERT INTO Biletlər (SessionID, CustomerID, SeatNumber, Price, PurchaseDate) VALUES 
 (1, 1, N'A1', 12.00, '2026-09-01 10:30:00'),
 (1, 1, N'A2', 12.00, '2026-09-01 10:30:00'),
