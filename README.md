@@ -104,9 +104,7 @@ Aşağıdakı cədvəllər və onlar arasındakı əlaqələr artıq bazada möv
 
 ---
 
--- MSSQL TSQL Script: Cinema Club Database Sample Data
 
--- 1. Genres (Janrlar)
 INSERT INTO Janrlar (GenreName) VALUES 
 (N'Action'), 
 (N'Drama'), 
@@ -119,7 +117,7 @@ INSERT INTO Janrlar (GenreName) VALUES
 (N'Crime'),
 (N'Biography');
 
--- 2. Halls (Zallar)
+
 INSERT INTO Zallar (HallName, Capacity) VALUES 
 (N'Hall 1 - IMAX', 200),
 (N'Hall 2 - Standard', 100),
@@ -127,7 +125,7 @@ INSERT INTO Zallar (HallName, Capacity) VALUES
 (N'Hall 4 - Dolby Atmos', 150),
 (N'VIP Hall', 35);
 
--- 3. Actors (Aktyorlar)
+
 INSERT INTO Aktyorlar (FirstName, LastName, BirthDate) VALUES 
 (N'Leonardo', N'DiCaprio', '1974-11-11'),
 (N'Brad', N'Pitt', '1963-12-18'),
@@ -140,7 +138,7 @@ INSERT INTO Aktyorlar (FirstName, LastName, BirthDate) VALUES
 (N'Scarlett', N'Johansson', '1984-11-22'),
 (N'Robert', N'Downey Jr.', '1965-04-04');
 
--- 4. Movies (Filmlər)
+
 INSERT INTO Filmlər (Title, ReleaseYear, Rating, Duration, Status) VALUES 
 (N'Inception', 2010, 8.8, 148, N'Active'),
 (N'Interstellar', 2014, 8.7, 169, N'Active'),
