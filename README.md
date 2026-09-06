@@ -1,6 +1,3 @@
-# Kino-Klub və Bilet Satışı Sistemi — SQL Tapşırıqlar Toplusu (50 Sual)
-
-Bu sənəd **MSSQL (Microsoft SQL Server)** mühiti üçün nəzərdə tutulmuş 50 praktiki sorğu tapşırığını əhatə edir. Layihə bir **Kino-Klub və Bilet Satışı Sistemi** ssenarisi üzərində qurulmuşdur.
 
 ---
 
