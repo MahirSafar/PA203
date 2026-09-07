@@ -178,12 +178,3 @@ Aşağıdakı cədvəllər və onlar arasındakı əlaqələr artıq bazada möv
 44. "Aksiyon" janrında olan və reytinqi 8.0-dən yüksək olan filmlərin siyahısını çıxarın.
 
 ---
-
-### Bölmə 7: Mürəkkəb Birləşmələr (Multi-JOIN) və Qarışıq Sorğular (45–50)
-
-45. **Çoxlu JOIN:** Müştərinin adı, aldığı biletin qiyməti, filmin adı və biletin aid olduğu zalın adını eyni sorğuda göstərin (`Müştərilər` + `Biletlər` + `Seanslar` + `Filmlər` + `Zallar`).
-46. "Aksiyon" janrındakı filmlərə satılmış biletlərin ümumi məbləğini (`SUM`) hesablayın.
-47. `FULL OUTER JOIN` istifadə edərək bütün zalları və bütün seansları eşləşdirin (uyğunlaşmayanlar da daxil olmaqla).
-48. `CROSS JOIN` istifadə edərək bütün zallar ilə bütün seanslar arasında mümkün olan bütün kombinasiyaları generasiya edin.
-49. Öz-özünə birləşmə (`Self Join`): `Müştərilər` cədvəlində eyni şəhərdə yaşayan başqa bir müştərisi olan müştəri cütlüklərini çıxarın.
-50. "Dram" janrında olan, müddəti 100 dəqiqədən çox olan və "Zal 2"-də nümayiş olunan seansların siyahısını filmin adı və seans vaxtı ilə birgə göstərin.
