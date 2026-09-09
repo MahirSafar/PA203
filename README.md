@@ -165,16 +165,3 @@ Aşağıdakı cədvəllər və onlar arasındakı əlaqələr artıq bazada möv
 36. Tutumu (Capacity) 100-dən çox olan zallarda təşkil olunan seansların siyahısını çıxarın.
 
 ---
-
-### Bölmə 6: Many-to-Many (N:M) Əlaqəli Sorğular (37–44)
-
-37. `Filmlər`, `FilmJanrları` və `Janrlar` cədvəllərini birləşdirərək filmlərin adını və qarşısında janrının adını göstərin.
-38. `Filmlər`, `FilmAktyorları` və `Aktyorlar` cədvəllərini birləşdirərək "Inception" filmində çəkilən bütün aktyorların siyahısını çıxarın.
-39. "Komediya" janrında olan bütün filmlərin adlarını və reytinqlərini siyahılayın.
-40. "Bred Pitt" adlı aktyorun çəkildiyi bütün filmlərin adını və buraxılış ilini çıxarın.
-41. Həm "Dram", həm də "Aksiyon" janrında olan filmləri tapmaq üçün uyğun `JOIN` sorğusu yazın.
-42. Hələ heç bir janr mənsubiyyəti təyin olunmamış filmləri çıxarın.
-43. Hələ heç bir filmə çəkilməmiş aktyorların siyahısını `LEFT JOIN` vasitəsilə tapın.
-44. "Aksiyon" janrında olan və reytinqi 8.0-dən yüksək olan filmlərin siyahısını çıxarın.
-
----
