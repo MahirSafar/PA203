@@ -9,15 +9,6 @@ Aşağıdakı cədvəllər və onlar arasındakı əlaqələr artıq bazada möv
 
 ---
 
-### 1. Filmlər (Movies)
-* **`MovieID`** (INT, Primary Key, IDENTITY)
-* **`Title`** (NVARCHAR(150), NOT NULL)
-* **`ReleaseYear`** (INT)
-* **`Rating`** (DECIMAL(3,1))
-* **`Duration`** (INT) — *dəqiqə ilə*
-* **`Status`** (NVARCHAR(50)) — *Aktiv, Arxiv və s.*
-
----
 
 ### 2. FilmTəfərrüatları (MovieDetails) — *(1:1 Əlaqə)*
 * **`MovieID`** (INT, Primary Key, Foreign Key -> `Filmlər.MovieID`)
