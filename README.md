@@ -1,158 +1,293 @@
+# Mini e-Ticarət & Sifariş İdarəetmə Sistemi Tapşırığı
 
 ---
 
-## 🏗️ Verilənlər Bazası Strukturu (Database Schema Overview)
+## 1. Sistem Arxitekturası və Entity-lər
 
-Aşağıdakı cədvəllər və onlar arasındakı əlaqələr artıq bazada mövcuddur və məlumatlarla doldurulmuşdur.
+Sistemdə cəmi 6 əsas Entity olacaq:
 
-# Kino-Klub və Bilet Satışı Sistemi — Cədvəllər və Sütunlar (Database Schema)
-
----
-
-
-### 2. FilmTəfərrüatları (MovieDetails) — *(1:1 Əlaqə)*
-* **`MovieID`** (INT, Primary Key, Foreign Key -> `Filmlər.MovieID`)
-* **`Budget`** (DECIMAL(15,2))
-* **`Country`** (NVARCHAR(100))
-* **`Language`** (NVARCHAR(50))
-* **`Description`** (NVARCHAR(MAX))
+1. **User** (İstifadəçi - Id, FullName, Email, Role, CreatedAt)
+2. **Product** (Məhsul - Id, Name, Price, StockQuantity, IsActive)
+3. **Category** (Kateqoriya - Id, Name, Description)
+4. **Order** (Sifariş - Id, UserId, OrderDate, Status, TotalAmount)
+5. **OrderItem** (Sifariş Detalı - Id, OrderId, ProductId, Quantity, UnitPrice)
+6. **Payment** (Ödəniş - Id, OrderId, PaymentDate, Amount, PaymentMethod, Status)
 
 ---
 
-### 3. Janrlar (Genres)
-* **`GenreID`** (INT, Primary Key, IDENTITY)
-* **`GenreName`** (NVARCHAR(50), NOT NULL, UNIQUE)
+## 2. Enum-lar
+
+```csharp
+public enum UserRole
+{
+    Admin = 1,
+    Customer = 2
+}
+
+public enum OrderStatus
+{
+    Pending = 1,
+    Processing = 2,
+    Shipped = 3,
+    Delivered = 4,
+    Cancelled = 5
+}
+
+public enum PaymentMethod
+{
+    CreditCard = 1,
+    PayPal = 2,
+    BankTransfer = 3
+}
+
+public enum PaymentStatus
+{
+    Pending = 1,
+    Completed = 2,
+    Failed = 3
+}
+```
 
 ---
 
-### 4. FilmJanrları (MovieGenres) — *(N:M Keçid Cədvəli)*
-* **`MovieID`** (INT, Foreign Key -> `Filmlər.MovieID`)
-* **`GenreID`** (INT, Foreign Key -> `Janrlar.GenreID`)
-* *(Primary Key: `MovieID` + `GenreID`)*
+## 3. EF Core Configurations (Fluent API)
+
+Hər bir Entity üçün ayrı `IEntityTypeConfiguration<T>` faylı yaradılmalıdır. Metod daxilində `Configure` metodunu yazmalısınız:
+
+* **`UserConfiguration`**
+  * `Configure(EntityTypeBuilder<User> builder)`
+* **`ProductConfiguration`**
+  * `Configure(EntityTypeBuilder<Product> builder)`
+* **`CategoryConfiguration`**
+  * `Configure(EntityTypeBuilder<Category> builder)`
+* **`OrderConfiguration`**
+  * `Configure(EntityTypeBuilder<Order> builder)`
+* **`OrderItemConfiguration`**
+  * `Configure(EntityTypeBuilder<OrderItem> builder)`
+* **`PaymentConfiguration`**
+  * `Configure(EntityTypeBuilder<Payment> builder)`
 
 ---
 
-### 5. Aktyorlar (Actors)
-* **`ActorID`** (INT, Primary Key, IDENTITY)
-* **`FirstName`** (NVARCHAR(50), NOT NULL)
-* **`LastName`** (NVARCHAR(50), NOT NULL)
-* **`BirthDate`** (DATE)
+## 4. AppDbContext Strukturu
+
+`AppDbContext` sinfində `DbSet`-lər, konfiqurasiyaların qoşulması və Override ediləcək metodlar yer almalıdır:
+
+* **Xassələr:** `Users`, `Products`, `Categories`, `Orders`, `OrderItems`, `Payments`
+* **Metodlar:**
+  * `OnConfiguring(DbContextOptionsBuilder optionsBuilder)`
+  * `OnModelCreating(ModelBuilder modelBuilder)`
+  * `SaveChangesAsync(CancellationToken cancellationToken = default)` *(Audit loglar və ya Soft Delete məntiqləri üçün)*
 
 ---
 
-### 6. FilmAktyorları (MovieActors) — *(N:M Keçid Cədvəli)*
-* **`MovieID`** (INT, Foreign Key -> `Filmlər.MovieID`)
-* **`ActorID`** (INT, Foreign Key -> `Aktyorlar.ActorID`)
-* **`RoleName`** (NVARCHAR(100)) — *Aktyorun rolu (istəyə bağlı)*
-* *(Primary Key: `MovieID` + `ActorID`)*
+## 5. Interfeyslər və Servislər (Yalnız Metod İmzaları)
+
+### A. Category / Product İdarəetməsi
+
+```csharp
+public interface IProductService
+{
+    Task<ProductDto> GetByIdAsync(int id);
+    Task<List<ProductDto>> GetAllAsync();
+    Task<List<ProductDto>> GetByCategoryIdAsync(int categoryId);
+    Task CreateAsync(CreateProductDto dto);
+    Task UpdateAsync(int id, UpdateProductDto dto);
+    Task DeleteAsync(int id);
+    Task UpdateStockAsync(int productId, int quantityChange);
+}
+```
+
+### B. Sifariş İdarəetməsi
+
+```csharp
+public interface IOrderService
+{
+    Task<OrderDto> GetOrderDetailsAsync(int orderId);
+    Task<List<OrderDto>> GetOrdersByUserIdAsync(int userId);
+    Task<int> CreateOrderAsync(CreateOrderDto dto);
+    Task UpdateOrderStatusAsync(int orderId, OrderStatus status);
+    Task CancelOrderAsync(int orderId);
+}
+```
+
+### C. Ödəniş və Avtomatlaşdırma
+
+```csharp
+public interface IPaymentService
+{
+    Task<PaymentDto> GetPaymentByOrderIdAsync(int orderId);
+    Task<bool> ProcessPaymentAsync(CreatePaymentDto dto);
+}
+```
 
 ---
 
-### 7. Zallar (Halls)
-* **`HallID`** (INT, Primary Key, IDENTITY)
-* **`HallName`** (NVARCHAR(50), NOT NULL)
-* **`Capacity`** (INT, NOT NULL)
+## Tapşırığın İzahı və Gedişat Ardıcıllığı
+
+Bu tapşırığı sırasıyla icra edərək bazadan servislərə qədər tam funksional arxitektura qura bilərsiniz.
+
+### Addım 1: Domen və Baza Modelinin Qurulması
+1. **Entity-ləri təyin edin:** Verilən 6 entity-ni və Enum-ları yaradın. Entity-lər arasında düzgün Naviqasiya xassələrini (Navigation Properties) verin:
+   * `Category` $\rightarrow$ `List<Product>` (1-ə Çox)
+   * `User` $\rightarrow$ `List<Order>` (1-ə Çox)
+   * `Order` $\rightarrow$ `List<OrderItem>` (1-ə Çox)
+   * `Order` $\rightarrow$ `Payment` (1-ə 1)
+
+### Addım 2: Fluent API Konfiqurasiyası
+1. `IEntityTypeConfiguration<T>` interfeysini tətbiq edin:
+   * **Məhdudiyyətlər (Constraints):** `HasMaxLength`, `IsRequired`, `HasPrecision` (qiymətlər üçün `decimal(18,2)`).
+   * **Əlaqələr (Relationships):** `HasOne`, `WithMany`, `HasForeignKey` istifadə edərək Cascade Delete davranışlarını (məsələn, `DeleteBehavior.Restrict`) tənzimləyin.
+   * **İndekslər:** Email kimi sahələr üçün Unikal İndeks (`IsUnique`) qoyun.
+
+### Addım 3: AppDbContext və Miqrasiya
+1. `AppDbContext` faylında Fluent API konfiqurasiyalarını avtomatik yükləmək üçün `modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())` yazın.
+2. `Add-Migration InitialCreate` və `Update-Database` əmrləri ilə verilənlər bazasını yaradın.
+
+### Addım 4: Biznes Məntiqi və Servislərin Yazılması
+1. Təyin olunmuş interfeysləri tətbiq edən `ProductService`, `OrderService` və `PaymentService` siniflərini yaradın.
+   * **Async/Await & AsNoTracking:** Oxuma metodlarında (`Get...`) `AsNoTracking()` istifadə edərək resurslara qənaət edin.
+  
+
+
+
+
+# "Система управления мини-интернет-магазином"
+
+## 1. Архитектура системы и сущности
+
+Система состоит из 6 основных сущностей (Entities):
+
+1. **User** (Пользователь - Id, FullName, Email, Role, CreatedAt)
+2. **Product** (Товар - Id, Name, Price, StockQuantity, IsActive)
+3. **Category** (Категория - Id, Name, Description)
+4. **Order** (Заказ - Id, UserId, OrderDate, Status, TotalAmount)
+5. **OrderItem** (Элемент заказа - Id, OrderId, ProductId, Quantity, UnitPrice)
+6. **Payment** (Оплата - Id, OrderId, PaymentDate, Amount, PaymentMethod, Status)
+
+## 2. Перечисления (Enums)
+
+```csharp
+public enum UserRole
+{
+    Admin = 1,
+    Customer = 2
+}
+
+public enum OrderStatus
+{
+    Pending = 1,
+    Processing = 2,
+    Shipped = 3,
+    Delivered = 4,
+    Cancelled = 5
+}
+
+public enum PaymentMethod
+{
+    CreditCard = 1,
+    PayPal = 2,
+    BankTransfer = 3
+}
+
+public enum PaymentStatus
+{
+    Pending = 1,
+    Completed = 2,
+    Failed = 3
+}
+```
+
+## 3. Конфигурации EF Core (Fluent API)
+
+Для каждой сущности должен быть создан отдельный файл конфигурации, реализующий интерфейс `IEntityTypeConfiguration<T>`. Внутри него необходимо реализовать метод `Configure`:
+
+* **`UserConfiguration`**
+  * `Configure(EntityTypeBuilder<User> builder)`
+* **`ProductConfiguration`**
+  * `Configure(EntityTypeBuilder<Product> builder)`
+* **`CategoryConfiguration`**
+  * `Configure(EntityTypeBuilder<Category> builder)`
+* **`OrderConfiguration`**
+  * `Configure(EntityTypeBuilder<Order> builder)`
+* **`OrderItemConfiguration`**
+  * `Configure(EntityTypeBuilder<OrderItem> builder)`
+* **`PaymentConfiguration`**
+  * `Configure(EntityTypeBuilder<Payment> builder)`
+
+## 4. Структура AppDbContext
+
+Класс `AppDbContext` должен содержать свойства `DbSet`, регистрацию конфигураций и переопределение методов:
+
+* **Свойства:** `Users`, `Products`, `Categories`, `Orders`, `OrderItems`, `Payments`
+* **Методы:**
+  * `OnConfiguring(DbContextOptionsBuilder optionsBuilder)`
+  * `OnModelCreating(ModelBuilder modelBuilder)`
+  * `SaveChangesAsync(CancellationToken cancellationToken = default)` *(Для аудит-логов или логики Soft Delete)*
+
+## 5. Интерфейсы и сервисы (Только сигнатуры методов)
+
+### A. Управление категориями и товарами
+
+```csharp
+public interface IProductService
+{
+    Task<ProductDto> GetByIdAsync(int id);
+    Task<List<ProductDto>> GetAllAsync();
+    Task<List<ProductDto>> GetByCategoryIdAsync(int categoryId);
+    Task CreateAsync(CreateProductDto dto);
+    Task UpdateAsync(int id, UpdateProductDto dto);
+    Task DeleteAsync(int id);
+    Task UpdateStockAsync(int productId, int quantityChange);
+}
+```
+
+### B. Управление заказами
+
+```csharp
+public interface IOrderService
+{
+    Task<OrderDto> GetOrderDetailsAsync(int orderId);
+    Task<List<OrderDto>> GetOrdersByUserIdAsync(int userId);
+    Task<int> CreateOrderAsync(CreateOrderDto dto);
+    Task UpdateOrderStatusAsync(int orderId, OrderStatus status);
+    Task CancelOrderAsync(int orderId);
+}
+```
+
+### C. Оплата и автоматизация
+
+```csharp
+public interface IPaymentService
+{
+    Task<PaymentDto> GetPaymentByOrderIdAsync(int orderId);
+    Task<bool> ProcessPaymentAsync(CreatePaymentDto dto);
+}
+```
 
 ---
 
-### 8. Seanslar (Sessions) — *(1:N Əlaqələr)*
-* **`SessionID`** (INT, Primary Key, IDENTITY)
-* **`MovieID`** (INT, Foreign Key -> `Filmlər.MovieID`)
-* **`HallID`** (INT, Foreign Key -> `Zallar.HallID`)
-* **`StartTime`** (DATETIME, NOT NULL)
-* **`Status`** (NVARCHAR(50)) — *Active, Cancelled və s.*
+## Описание и последовательность выполнения задания
 
----
+Выполняя эти шаги последовательно, вы построите полноценную и функциональную архитектуру от базы данных до сервисов.
 
-### 9. Müştərilər (Customers)
-* **`CustomerID`** (INT, Primary Key, IDENTITY)
-* **`FirstName`** (NVARCHAR(50), NOT NULL)
-* **`LastName`** (NVARCHAR(50), NOT NULL)
-* **`Email`** (NVARCHAR(100))
-* **`Phone`** (NVARCHAR(20))
-* **`City`** (NVARCHAR(50))
+### Шаг 1: Создание доменных моделей и структуры БД
+1. **Определите сущности:** Создайте 6 сущностей и необходимые Enums. Настройте корректные навигационные свойства (Navigation Properties):
+   * `Category` $\rightarrow$ `List<Product>` (Один ко Многим)
+   * `User` $\rightarrow$ `List<Order>` (Один ко Многим)
+   * `Order` $\rightarrow$ `List<OrderItem>` (Один ко Многим)
+   * `Order` $\rightarrow$ `Payment` (Один к Одному)
 
----
+### Шаг 2: Конфигурация через Fluent API
+1. Реализуйте интерфейс `IEntityTypeConfiguration<T>`:
+   * **Ограничения (Constraints):** Используйте `HasMaxLength`, `IsRequired`, `HasPrecision` (для цен `decimal(18,2)`).
+   * **Связи (Relationships):** С помощью `HasOne`, `WithMany`, `HasForeignKey` настройте поведение каскадного удаления (например, `DeleteBehavior.Restrict`).
+   * **Индексы:** Настройте уникальный индекс (`IsUnique`) для таких полей, как Email.
 
-### 10. MüştəriKartları (CustomerCards) — *(1:1 Əlaqə)*
-* **`CustomerID`** (INT, Primary Key, Foreign Key -> `Müştərilər.CustomerID`)
-* **`CardNumber`** (NVARCHAR(20), NOT NULL, UNIQUE)
-* **`BonusPoints`** (INT, DEFAULT 0)
-* **`Status`** (NVARCHAR(20)) — *Aktiv, Deaktiv*
+### Шаг 3: AppDbContext и миграции
+1. В файле `AppDbContext` добавьте строку `modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())` для автоматической загрузки всех конфигураций Fluent API.
+2. Выполните команды `Add-Migration InitialCreate` и `Update-Database` для создания базы данных.
 
----
-
-### 11. Biletlər (Tickets) — *(1:N Əlaqələr)*
-* **`TicketID`** (INT, Primary Key, IDENTITY)
-* **`SessionID`** (INT, Foreign Key -> `Seanslar.SessionID`)
-* **`CustomerID`** (INT, Foreign Key -> `Müştərilər.CustomerID`)
-* **`SeatNumber`** (NVARCHAR(10), NOT NULL)
-* **`Price`** (DECIMAL(10,2))
-* **`PurchaseDate`** (DATETIME, DEFAULT GETDATE())
-
----
-
----
-
-## 📝 50 Sorğu Tapşırığı (SQL Query Tasks)
-
-### Bölmə 1: Əsas SQL Komandaları, Filtrləmə və Sıralama (1–10)
-
-1. `Filmlər` cədvəlindən buraxılış ili 2020-ci ildən sonra olan filmlərin adını və xalını (Rating) çıxarın.
-2. `Müştərilər` cədvəlində adında "ə" hərfi olan müştərilərin siyahısını soyadına görə əlifba sırası ilə sıralayın.
-3. Reytinqi (Rating) 8.0 ilə 9.5 arasında olan filmlərin adını və reytinqini göstərin.
-4. Nümayiş müddəti (Duration) 120 dəqiqədən çox olan ilk 5 filmi reytinqə görə azalan sırada çıxarın (`TOP` işlədin).
-5. `Biletlər` cədvəlində qiyməti `NULL` olan (pulsuz verilmə ehtimalı olan) biletlərin siyahısını çıxarın.
-6. `Müştərilər` cədvəlində elektron poçtu `gmail.com` ilə bitən müştəriləri tapın.
-7. `Seanslar` cədvəlindən bu günə (cari tarixə) olan seansların siyahısını seans vaxtına görə nizamlansın.
-8. Filmlərin siyahısını buraxılış ilinə görə azalan, eyni ildə olanları isə reytinqə görə artan sırada göstərin.
-9. Qiyməti 10, 12 və ya 15 AZN olan biletlərin unikal (`DISTINCT`) qiymət siyahısını çıxarın.
-10. `Aktyorlar` cədvəlində doğum tarixi 1980-ci ildən əvvəl olan aktyorların ad və soyadını gətirin.
-
----
-
-### Bölmə 2: Constraints və Verilənlərin Dəyişdirilməsi / DML (11–15)
-
-11. Xalı (Rating) 5.0-dən aşağı olan filmlərin statusunu `UPDATE` edərək "Arxiv" edin.
-12. Telefon nömrəsi `NOT NULL` şərtini ödəməyən (yəni nömrəsi olmayan) müştərilərin siyahısını göstərin.
-13. Qiyməti 5 AZN-dən az olan biletlərin qiymətini 1 AZN artırın.
-14. Ləğv olunmuş seanslara (`Status = 'Cancelled'`) satılmış biletləri `Biletlər` cədvəlindən silin (`DELETE`).
-15. `MüştəriKartları` cədvəlində balı 0 olan kartların statusunu "Deaktiv" olaraq yeniləyin.
-
----
-
-### Bölmə 3: Aggregate Functions (16–22)
-
-16. Kinoteatrda olan bütün filmlərin ortalama reytinq xalını (`AVG`) hesablayın.
-17. Bazada ümumi neçə müştərinin qeydiyyatdan keçdiyini (`COUNT`) tapın.
-18. Satılmış bütün biletlərdən əldə olunan ümumi gəliri (`SUM`) hesablayın.
-19. Sistemdəki en baha biletin qiymətini (`MAX`) tapın.
-20. Ən qısa filmin neçə dəqiqə olduğunu (`MIN`) tapın.
-21. Elektron poçtu qeyd olunmuş (yəni `NULL` olmayan) müştərilərin sayını çıxarın.
-22. `Biletlər` cədvəlində orta bilet qiyməti ilə ən baha bilet qiyməti arasındakı fərqi hesablayın.
-
----
-
-### Bölmə 4: One-to-One (1:1) Əlaqəli Sorğular (23–27)
-
-23. `Filmlər` və `FilmTəfərrüatları` cədvəlini birləşdirərək filmin adı ilə onun çəkiliş büdcəsini göstərin.
-24. `Müştərilər` və `MüştəriKartları` cədvəllərini `INNER JOIN` edərək müştərinin adı, soyadı və kartındakı bonus balını çıxarın.
-25. Hələ heç bir bonus kartı olmayan müştəriləri tapmaq üçün `Müştərilər` cədvəlini `MüştəriKartları` ilə `LEFT JOIN` edin və kart hissəsi `NULL` olanları süzgəcləyin.
-26. Büdcəsi 50 milyon dollardan çox olan filmlərin adını və istehsalçı ölkəsini (`FilmTəfərrüatları` cədvəlindən) göstərin.
-27. Bonus kartında 100-dən çox balı olan müştərilərin adını, soyadını və kart nömrəsini siyahılayın.
-
----
-
-### Bölmə 5: One-to-Many (1:N) Əlaqəli Sorğular (28–36)
-
-28. `Filmlər` və `Seanslar` cədvəllərini birləşdirərək hər seansın hansı filmə aid olduğunu və seans vaxtını göstərin.
-29. `Zallar` və `Seanslar` cədvəllərini `INNER JOIN` edərək "Zal 1"-də keçiriləcək seansların siyahısını çıxarın.
-30. `Biletlər` və `Müştərilər` cədvəllərini birləşdirərək "Əli Əliyev" adlı müştərinin aldığı biletlərin siyahısını göstərin.
-31. Bütün filmləri və varsa onların seanslarını göstərin. Seansı olmayan filmlər də siyahıda çıxsın (`LEFT JOIN`).
-32. `Seanslar` və `Biletlər` cədvəlini birləşdirərək saat 18:00-da başlayan seanslara satılan biletləri tapın.
-33. Hələ heç bir bilet almamış müştərilərin siyahısını tapın (`LEFT JOIN` və `WHERE BiletID IS NULL`).
-34. Hələ heç bir seansı təyin olunmamış filmlərin siyahısını çıxarın.
-35. Müştərinin adı, aldığı biletin otacaq yeri (SeatNumber) və seansın başlama vaxtını eyni sorğuda göstərin.
-36. Tutumu (Capacity) 100-dən çox olan zallarda təşkil olunan seansların siyahısını çıxarın.
-
----
+### Шаг 4: Бизнес-логика и реализация сервисов
+1. Создайте классы `ProductService`, `OrderService` и `PaymentService`, реализующие соответствующие интерфейсы.
+   * **Async/Await и AsNoTracking:** В методах чтения (`Get...`) используйте `AsNoTracking()` для оптимизации производительности.
