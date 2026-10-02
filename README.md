@@ -284,10 +284,3 @@ public interface IPaymentService
    * **Связи (Relationships):** С помощью `HasOne`, `WithMany`, `HasForeignKey` настройте поведение каскадного удаления (например, `DeleteBehavior.Restrict`).
    * **Индексы:** Настройте уникальный индекс (`IsUnique`) для таких полей, как Email.
 
-### Шаг 3: AppDbContext и миграции
-1. В файле `AppDbContext` добавьте строку `modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())` для автоматической загрузки всех конфигураций Fluent API.
-2. Выполните команды `Add-Migration InitialCreate` и `Update-Database` для создания базы данных.
-
-### Шаг 4: Бизнес-логика и реализация сервисов
-1. Создайте классы `ProductService`, `OrderService` и `PaymentService`, реализующие соответствующие интерфейсы.
-   * **Async/Await и AsNoTracking:** В методах чтения (`Get...`) используйте `AsNoTracking()` для оптимизации производительности.
