@@ -278,9 +278,3 @@ public interface IPaymentService
    * `Order` $\rightarrow$ `List<OrderItem>` (Один ко Многим)
    * `Order` $\rightarrow$ `Payment` (Один к Одному)
 
-### Шаг 2: Конфигурация через Fluent API
-1. Реализуйте интерфейс `IEntityTypeConfiguration<T>`:
-   * **Ограничения (Constraints):** Используйте `HasMaxLength`, `IsRequired`, `HasPrecision` (для цен `decimal(18,2)`).
-   * **Связи (Relationships):** С помощью `HasOne`, `WithMany`, `HasForeignKey` настройте поведение каскадного удаления (например, `DeleteBehavior.Restrict`).
-   * **Индексы:** Настройте уникальный индекс (`IsUnique`) для таких полей, как Email.
-
